@@ -12,6 +12,7 @@ public class Course {
     public Course(){
         this(0, "", 0, new Teacher(), new ArrayList<Student>());
     }
+
     public Course(int courseID, String courseName, int courseCredits, Teacher assignedTeacher, ArrayList<Student> enrolledStudents){
         this.courseID = courseID;
         this.courseName = courseName;
@@ -21,7 +22,28 @@ public class Course {
     }
     // Functionality
 
-    // Implement here
+    public void addStudent(Student student){
+        if ( student != null){
+            enrolledStudents.add( student ) ;
+            System.out.println("Student " + student.getName() + " Added to " + getCourseName() );
+        }
+    }
+
+    public void removeStudent(Student student){
+        for ( Student student : enrolledStudents ){
+            if ( student.equals(student) ){
+                enrolledStudents.remove( student ) ;
+            }
+        }
+    }
+
+    public void calculateAverageGrade(){
+        double averageGrade = 0;
+
+        for ( Student student : enrolledStudents ){
+            
+        }
+    }
 
     // Getters and Setters
 
