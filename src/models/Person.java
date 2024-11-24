@@ -22,12 +22,10 @@ public class Person {
     }
     // Functionality
 
-    public void generateReports(List <Person> people) {
-
+    public void generateReport(List <Person> people) {
     }
 
     public void displayDetails() {
-
     }
 
     // Getters and Setters

@@ -27,9 +27,9 @@ public class Teacher extends Person{
         }
     }
 
-    public void displayCourses(){
+    public void displayDetails(){
         for ( Course enrolled : coursesTaught ){
-            System.out.println("Course Id: " + enrolled.getCourseId() );
+            System.out.println("Course Id: " + enrolled.getCourseID() );
             System.out.println("Course Name: " + enrolled.getCourseName() );
             System.out.println("Course Credits: " + enrolled.getCourseCredits() );
         }
