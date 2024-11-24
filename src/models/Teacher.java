@@ -19,7 +19,11 @@ public class Teacher extends Person{
     }
     // Functionality
 
-    // Implement here
+    public void assignCourse(Course course){
+        if ( course != null ) {
+            coursesTaught.add( course ) ;
+        }
+    }
 
     // Getters and Setters
 
