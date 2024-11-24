@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 public class AdministrativeStaff extends Person{
     private int staffID;
     private String role;
@@ -8,6 +10,7 @@ public class AdministrativeStaff extends Person{
     public AdministrativeStaff(){
         this(0, "", "");
     }
+
     public AdministrativeStaff(int staffID, String role, String department){
         this.staffID = staffID;
         this.role = role;
@@ -15,7 +18,28 @@ public class AdministrativeStaff extends Person{
     }
     // Functionality
 
-    // Implement here
+    public void generateReport( List<Person> people ){
+        int teacherCount = 0 ;
+        int studentCount = 0 ;
+        int coursesCount = 0 ;
+
+        if ( people instanceof Teacher ){
+            teacherCount++ ;
+        }
+
+        if ( people instanceof Student ){
+            studentCount++ ;
+        }
+
+        if ( people instanceof Course ){
+            coursesCount++ ;
+        }
+
+        System.out.println("Total Teachers: " + teacherCount);
+        System.out.println("Total Students: " + studentCount);
+        System.out.println("Total Courses: " + coursesCount);
+
+    }
 
     // Getters and Setters
 
