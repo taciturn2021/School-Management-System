@@ -16,10 +16,10 @@ public class Student extends Person{
     }
 
     // Functionality
-
-    public void displayCourses(){
+    @Override
+    public void displayDetails(){
         for ( Course enrolled : enrolledCourses ){
-            System.out.println("Course Id: " + enrolled.getCourseId() );
+            System.out.println("Course Id: " + enrolled.getCourseID() );
             System.out.println("Course Name: " + enrolled.getCourseName() );
             System.out.println("Course Credits: " + enrolled.getCourseCredits() );
         }

@@ -1,5 +1,6 @@
 package models;
 import java.util.Date;
+import java.util.List;
 
 // Generic Inheritable Person class
 
@@ -12,6 +13,7 @@ public class Person {
     Person(){
         this("", "", new Date(), new Address("", "", "", "", ""));
     }
+
     Person(String name, String email, Date dateOfBirth, Address address){
         this.name = name;
         this.email = email;
@@ -20,7 +22,11 @@ public class Person {
     }
     // Functionality
 
-    // Implement here
+    public void generateReport(List <Person> people) {
+    }
+
+    public void displayDetails() {
+    }
 
     // Getters and Setters
 

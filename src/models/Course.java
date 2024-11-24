@@ -39,7 +39,6 @@ public class Course {
 
     public void calculateAverageGrade(){
         double averageGrade = 0;
-
         for ( Student student : enrolledStudents ){
             
         }
