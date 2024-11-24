@@ -11,6 +11,7 @@ public class Teacher extends Person{
     public Teacher(){
         this(0, "", "", new ArrayList<Course>());
     }
+
     public Teacher(int teacherID, String department, String specialization, ArrayList<Course> coursesTaught){
         this.teacherID = teacherID;
         this.department = department;
@@ -19,7 +20,20 @@ public class Teacher extends Person{
     }
     // Functionality
 
-    // Implement here
+    public void assignCourse(Course course){
+        if ( course != null ) {
+            coursesTaught.add( course ) ;
+            System.out.println("Teacher " + getName() + "assigned to teach " + course.getCourseName() + "." );
+        }
+    }
+
+    public void displayCourses(){
+        for ( Course enrolled : coursesTaught ){
+            System.out.println("Course Id: " + enrolled.getCourseId() );
+            System.out.println("Course Name: " + enrolled.getCourseName() );
+            System.out.println("Course Credits: " + enrolled.getCourseCredits() );
+        }
+    }
 
     // Getters and Setters
 
