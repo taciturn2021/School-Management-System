@@ -5,7 +5,7 @@ import java.io.*;
 public class FileHandler {
 
     // Loads data university data
-    public void loadData( String filename ){
+    public void loadData( String filename ) throws IOException {
 
         File enrolledDetails = new File( filename );
         if ( !enrolledDetails.exists() ) {
@@ -23,7 +23,7 @@ public class FileHandler {
     }
 
     // saves university data
-    public void SaveData( String filename ){
+    public void SaveData( String filename ) throws IOException {
 
         File enrolledDetails = new File( filename );
         if ( !enrolledDetails.exists() ) {
@@ -32,7 +32,7 @@ public class FileHandler {
 
         BufferedWriter enrolledDetailsWriter = new BufferedWriter( new FileWriter(filename) ) ;
 
-        enrolledDetailsWriter.write() ;
+        // enrolledDetailsWriter.write() ;
         enrolledDetailsWriter.newLine();
     }
 

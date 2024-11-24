@@ -29,10 +29,10 @@ public class Course {
         }
     }
 
-    public void removeStudent(Student student){
-        for ( Student student : enrolledStudents ){
-            if ( student.equals(student) ){
-                enrolledStudents.remove( student ) ;
+    public void removeStudent(Student std){
+        for (Student student : enrolledStudents ){
+            if ( student.equals(std) ){
+                enrolledStudents.remove(student) ;
             }
         }
     }
