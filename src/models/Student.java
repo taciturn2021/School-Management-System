@@ -31,6 +31,10 @@ public class Student extends Person{
         }
     }
 
+    public String toString() {
+        return super.toString() + "," + "Student ID: " + getStudentID() + "," + getEnrolledCourses();
+    }
+
     // Getters and Setters
 
     public int getStudentID() {

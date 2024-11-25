@@ -2,7 +2,7 @@ package models;
 
 import java.util.List;
 
-public class AdministrativeStaff extends Person{
+public class AdministrativeStaff extends Person {
     private int staffID;
     private String role;
     private String department;
@@ -19,28 +19,12 @@ public class AdministrativeStaff extends Person{
     // Functionality
 
     public void generateReport( List<Person> people ){
-        int teacherCount = 0 ;
-        int studentCount = 0 ;
-        int coursesCount = 0 ;
-
-        if ( people instanceof Teacher ){
-            teacherCount++ ;
-        }
-
-        if ( people instanceof Student ){
-            studentCount++ ;
-        }
-
-        if ( people instanceof Course ){
-            coursesCount++ ;
-        }
-
-        System.out.println("Total Teachers: " + teacherCount);
-        System.out.println("Total Students: " + studentCount);
-        System.out.println("Total Courses: " + coursesCount);
-
+       super.generateReport(people);
     }
 
+    public String toString(){
+        return getStaffID()+ " " + getRole() + " " + getDepartment();
+    }
     // Getters and Setters
 
 

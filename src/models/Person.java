@@ -22,10 +22,42 @@ public class Person {
     }
     // Functionality
 
-    public void generateReport(List <Person> people) {
+    public void generateReport( List<Person> people ){
+        int teacherCount = 0 ;
+        int studentCount = 0 ;
+        int coursesCount = 0 ;
+
+        for ( Person p : people ) {
+
+            if (people instanceof Teacher) {
+                teacherCount++;
+            }
+
+            if (people instanceof Student) {
+                studentCount++;
+            }
+
+            if (people instanceof Course) {
+                coursesCount++;
+            }
+
+        }
+
+        System.out.println("Total Teachers: " + teacherCount);
+        System.out.println("Total Students: " + studentCount);
+        System.out.println("Total Courses: " + coursesCount);
+
     }
 
     public void displayDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Email: " + email);
+        System.out.println("Date of Birth: " + dateOfBirth);
+        System.out.println("Address: " + address);
+    }
+
+    public String toString(){
+        return "Name: " + getName() + "," + "Email: " + getEmail() + "," + "Date of Birth: " + getDateOfBirth() + "," + getAddress().toString();
     }
 
     // Getters and Setters
