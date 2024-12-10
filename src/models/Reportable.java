@@ -1,6 +1,6 @@
 package models;
 
 public interface Reportable {
-    public String getReport();
+    public String generateReport();
     public void exportToFile(String filename);
 }

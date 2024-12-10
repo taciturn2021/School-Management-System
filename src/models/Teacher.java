@@ -35,6 +35,10 @@ public class Teacher extends Person{
         }
     }
 
+    public String toString(){
+        return super.toString() + "," + "Teacher ID: " + getTeacherID() + "," + "Department: " + getDepartment() + "," + "Specialization: " + getSpecialization() + "," + "Courses Taught: " + getCoursesTaught();
+    }
+
     // Getters and Setters
 
 

@@ -16,6 +16,10 @@ public class Address {
         this.country = country;
     }
 
+    public String toString() {
+        return "Street Address: " + getStreetAddress() + "," + "Country: " + getCountry() + "," + "City: " + getCity() + "," + "State: " + getState() + "," + "Zip Code: " + getZipCode()  ;
+    }
+
     // Getters and Setters
 
     public String getStreetAddress() {
