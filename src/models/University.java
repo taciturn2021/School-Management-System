@@ -7,10 +7,10 @@ import java.util.ArrayList;
 // To handle system-wide operations
 
 public class University {
-    private Repository<Student> studentRepository;
-    private Repository<Teacher> teacherRepository;
-    private Repository<Course> courseRepository;
-    private Repository<AdministrativeStaff> administrativeStaffRepository;
+    public Repository<Student> studentRepository;
+    public Repository<Teacher> teacherRepository;
+    public Repository<Course> courseRepository;
+    public Repository<AdministrativeStaff> administrativeStaffRepository;
 
     private static int studentCounter = 0;
     private static int teacherCounter = 0;
