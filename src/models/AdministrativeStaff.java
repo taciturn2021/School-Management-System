@@ -23,7 +23,7 @@ public class AdministrativeStaff extends Person {
     }
 
     public String toString(){
-        return getStaffID()+ " " + getRole() + " " + getDepartment();
+        return getStaffID()+ " " + getRole() + " " + getDepartment() ;
     }
     // Getters and Setters
 
