@@ -7,10 +7,9 @@ import models.*;
 
 public class FileHandler implements Serializable{
 
-    University university = new University() ;
 
     // Loads data university data
-    public void loadData(String filename ) throws IOException {
+    public void loadData(String filename ) throws IOException , FileNotFoundException {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream( new FileInputStream( "University_data.dat" )) ;
 
@@ -19,13 +18,16 @@ public class FileHandler implements Serializable{
                 Object object = objectInputStream.readObject() ;
 
                 if ( object instanceof Teacher){
-                    university.teacherRepository.add((Teacher) object);
+                    University.teacherRepository.add((Teacher) object);
                 }
                 if ( object instanceof Student){
-                    university.studentRepository.add((Student) object);
+                    University.studentRepository.add((Student) object);
                 }
                 if ( object instanceof Course){
-                    university.administrativeStaffRepository.add((AdministrativeStaff) object);
+                    University.administrativeStaffRepository.add( (AdministrativeStaff) object );
+                }
+                if ( object instanceof AdministrativeStaff){
+                    University.courseRepository.add( (Course) object );
                 }
 
             }
@@ -42,15 +44,33 @@ public class FileHandler implements Serializable{
     }
 
     // saves university data
-    public void SaveData( String filename ) throws IOException {
+    public void SaveData( String filename ) throws IOException , FileNotFoundException {
         try {
             if (!new File(filename).exists()) {
                 File universityFile = new File(filename);
-                System.out.println("No data to be loaded for now");
-                return;
             }
 
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filename));
+            ObjectOutputStream objectoutputStream = new ObjectOutputStream(new FileOutputStream(filename));
+
+            for ( Teacher teacher : University.teacherRepository.getAll() ){
+                Teacher tempTeacher = teacher ;
+                objectoutputStream.writeObject(tempTeacher);
+            }
+
+            for ( Student student : University.studentRepository.getAll() ){
+                Student tempStudent = student ;
+                objectoutputStream.writeObject(tempStudent);
+            }
+
+            for ( AdministrativeStaff administrativeStaff : University.administrativeStaffRepository.getAll()){
+                AdministrativeStaff tempAdminStaff = administrativeStaff ;
+                objectoutputStream.writeObject(tempAdminStaff);
+            }
+
+            for ( Course course : University.courseRepository.getAll()){
+                Course tempCourse = course ;
+                objectoutputStream.writeObject(tempCourse);
+            }
 
         }
         catch (FileNotFoundException ex){
