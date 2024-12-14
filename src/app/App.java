@@ -1,7 +1,15 @@
 package app;
 
+import gui.GUIWindow;
+
+import javax.swing.*;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new GUIWindow();
+            }
+        });
     }
 }

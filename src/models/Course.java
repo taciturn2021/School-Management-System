@@ -3,17 +3,24 @@ package models;
 import java.util.ArrayList;
 
 public class Course {
-    private int courseID;
+    private String courseID;
     private String courseName;
     private int courseCredits;
     private Teacher assignedTeacher;
     private ArrayList<Student> enrolledStudents;
 
     public Course(){
-        this(0, "", 0, new Teacher(), new ArrayList<Student>());
+        this("0", "", 0, new Teacher(), new ArrayList<Student>());
     }
 
-    public Course(int courseID, String courseName, int courseCredits, Teacher assignedTeacher, ArrayList<Student> enrolledStudents){
+
+    public Course(String courseID, String courseName, int courseCredits){
+        this.courseID = courseID;
+        this.courseName = courseName;
+        this.courseCredits = courseCredits;
+    }
+
+    public Course(String courseID, String courseName, int courseCredits, Teacher assignedTeacher, ArrayList<Student> enrolledStudents){
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseCredits = courseCredits;
@@ -47,11 +54,11 @@ public class Course {
     // Getters and Setters
 
 
-    public int getCourseID() {
+    public String getCourseID() {
         return courseID;
     }
 
-    public void setCourseID(int courseID) {
+    public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
 
