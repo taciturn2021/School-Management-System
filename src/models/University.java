@@ -3,14 +3,16 @@ package models;
 import repositories.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 // To handle system-wide operations
 
 public class University {
-    public static Repository<Student> studentRepository;
-    public static Repository<Teacher> teacherRepository;
-    public static Repository<Course> courseRepository;
-    public static Repository<AdministrativeStaff> administrativeStaffRepository;
+    public static Repository<Student> studentRepository = new Repository<Student>();
+    public static Repository<Teacher> teacherRepository = new Repository<Teacher>();
+    public static Repository<Course> courseRepository = new Repository<Course>();
+    public static Repository<AdministrativeStaff> administrativeStaffRepository = new Repository<AdministrativeStaff>();
 
     private static int studentCounter = 0;
     private static int teacherCounter = 0;
@@ -18,20 +20,19 @@ public class University {
     private static int administrativeStaffCounter = 0;
 
     public University(){
-        this.studentRepository = new Repository<>();
-        this.teacherRepository = new Repository<>();
-        this.courseRepository = new Repository<>();
-        this.administrativeStaffRepository = new Repository<>();
     }
 
-    public University(Repository<Student> studentRepository, Repository<Teacher> teacherRepository , Repository<Course> courseRepository , Repository<AdministrativeStaff> administrativeStaffRepository ){
-        this.studentRepository = studentRepository;
-        this.teacherRepository = teacherRepository;
-        this.courseRepository = courseRepository;
-        this.administrativeStaffRepository = administrativeStaffRepository;
-    }
 
     // Functionality
+    public static List<Course> filterCoursesByCredits(int minCredits) {
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course course : courseRepository.getAll()) {
+            if (course.getCourseCredits() >= minCredits) {
+                filteredCourses.add(course);
+            }
+        }
+        return filteredCourses;
+    }
 
     public void displaySystemStats(){
 
