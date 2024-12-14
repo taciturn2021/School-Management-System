@@ -1,62 +1,63 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-public class Student extends Person{
+public class Student extends Person {
     private int studentID;
-    private ArrayList<Course> enrolledCourses;
+    private List<Course> enrolledCourses;
 
-    Student(){
+    Student() {
         this(0, new ArrayList<Course>());
     }
 
-    Student(int studentID, ArrayList<Course> enrolledCourses){
+    Student(int studentID, List<Course> enrolledCourses) {
         this.studentID = studentID;
         this.enrolledCourses = enrolledCourses;
     }
 
-    // Functionality
+    public Student(int studentID, String name, String email, Date dateOfBirth, Address address) {
+        super(name, email, dateOfBirth, address);
+        this.studentID = studentID;
+    }
+
     @Override
-    public void displayDetails(){
-        for ( Course enrolled : enrolledCourses ){
-            System.out.println("Course Id: " + enrolled.getCourseID() );
-            System.out.println("Course Name: " + enrolled.getCourseName() );
-            System.out.println("Course Credits: " + enrolled.getCourseCredits() );
+    public void displayDetails() {
+        for (Course enrolled : enrolledCourses) {
+            System.out.println("Course Id: " + enrolled.getCourseID());
+            System.out.println("Course Name: " + enrolled.getCourseName());
+            System.out.println("Course Credits: " + enrolled.getCourseCredits());
         }
     }
 
-    public void enrollinCourse(Course course){
-        if ( course != null ){
-            enrolledCourses.add(course) ;
+    public void enrollinCourse(Course course) {
+        if (course != null) {
+            enrolledCourses.add(course);
         }
     }
 
     public String toString() {
-        return super.toString() + "," + "Student ID: " + getStudentID() + "," + getEnrolledCourses() ;
+        return super.toString() + ", Student ID: " + getStudentID() + ", " + getEnrolledCourses();
     }
-
-    // Getters and Setters
 
     public int getStudentID() {
         return studentID;
     }
 
     public void setStudentID(int studentID) {
-        if ( studentID < 0 ) {
+        if (studentID < 0) {
             this.studentID = studentID;
-        }else{
+        } else {
             System.out.println("Invalid Student ID entered!");
         }
     }
 
-    public ArrayList<Course> getEnrolledCourses() {
+    public List<Course> getEnrolledCourses() {
         return enrolledCourses;
     }
 
-    public void setEnrolledCourses(ArrayList<Course> enrolledCourses) {
+    public void setEnrolledCourses(List<Course> enrolledCourses) {
         this.enrolledCourses = enrolledCourses;
     }
-
-
-
 }

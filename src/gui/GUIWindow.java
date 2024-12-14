@@ -72,15 +72,19 @@ public class GUIWindow extends JFrame {
             }
         });
     }
-    private void showAddCourseForm() {
+    public void showAddCourseForm() {
         new CourseAddForm();
     }
-    private void showViewCourses() {
+    public void showViewCourses() {
         new CourseViewTable();
     }
-    private void showSearchCourse() {
+    public void showSearchCourse() {
         new CourseSearchForm();
     }
+    public void showAddStudentForm() {
+        new StudentAdmissionForm();
+    }
+
 
 
 }

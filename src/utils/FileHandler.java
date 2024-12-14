@@ -80,6 +80,8 @@ public class FileHandler implements Serializable{
         catch (Exception ex){
             System.out.println(ex.getMessage());
         }
+
+        System.out.println("Data Successfully saved to the University data file");
     }
 
 
