@@ -1,9 +1,7 @@
 package app;
 
-import gui.CourseAddForm;
-import gui.CourseSearchForm;
-import gui.GUIWindow;
-import gui.StudentAdmissionForm;
+import com.sun.source.tree.NewArrayTree;
+import gui.*;
 
 import javax.swing.*;
 
@@ -11,7 +9,7 @@ public class App {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-              new StudentAdmissionForm();
+               new AdministrationStaffHiringForm();
             }
         });
     }

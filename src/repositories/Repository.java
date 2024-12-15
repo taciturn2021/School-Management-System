@@ -19,11 +19,11 @@ public class Repository<T> {
         }
 
         if ( item instanceof Teacher){
-            System.out.println("Teacher: " + ((Teacher) item).getTeacherID() + "added to the repository");
+            System.out.println("Teacher: " + ((Teacher) item).getTeacherID() + " " + "added to the repository");
         }
 
         if ( item instanceof AdministrativeStaff){
-            System.out.println("Administrative Staff: " + ((AdministrativeStaff) item).getStaffID() + "added to the repository");
+            System.out.println("Administrative Staff: " + ((AdministrativeStaff) item).getStaffID() + " " + "added to the repository");
         }
 
     }

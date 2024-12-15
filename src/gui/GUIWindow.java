@@ -81,9 +81,8 @@ public class GUIWindow extends JFrame {
     public void showSearchCourse() {
         new CourseSearchForm();
     }
-    public void showAddStudentForm() {
-        new StudentAdmissionForm();
-    }
+    public void showAddStudentForm() { new StudentAdmissionForm(); }
+    public void showTeacherHiringForm() { new TeacherHiringForm(); }
 
 
 

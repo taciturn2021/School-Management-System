@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.List;
 
 public class AdministrativeStaff extends Person {
@@ -8,10 +9,11 @@ public class AdministrativeStaff extends Person {
     private String department;
 
     public AdministrativeStaff(){
-        this(0, "", "");
+        this(0, "", new Date(), "", new Address("", "", "", "", ""), "", "");
     }
 
-    public AdministrativeStaff(int staffID, String role, String department){
+    public AdministrativeStaff(int staffID, String name , Date dateOfBirth , String email , Address address , String role, String department){
+        super (name, email , dateOfBirth , address);
         this.staffID = staffID;
         this.role = role;
         this.department = department;

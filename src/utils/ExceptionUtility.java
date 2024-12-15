@@ -40,4 +40,20 @@ public class ExceptionUtility {
             throw new NumberFormatException("Date of Birth must be a valid integer.");
         }
     }
+
+    public static int parseTeacherID(String text) throws InvalidInputException {
+        try {
+            return Integer.parseInt(text);
+        } catch (java.lang.NumberFormatException e) {
+            throw new NumberFormatException("Teacher ID must be a valid integer.");
+        }
+    }
+
+    public static int parseStaffID(String text) throws InvalidInputException {
+        try {
+            return Integer.parseInt(text);
+        } catch (java.lang.NumberFormatException e) {
+            throw new NumberFormatException("Staff ID must be a valid integer.");
+        }
+    }
 }
