@@ -31,9 +31,15 @@ public class Student extends Person {
         }
     }
 
-    public void enrollinCourse(Course course) {
-        if (course != null) {
+    public void enrollInCourse(Course course) {
+        if (course != null && !enrolledCourses.contains(course)) {
             enrolledCourses.add(course);
+        }
+    }
+
+    public void dropCourse(Course course) {
+        if (course != null && enrolledCourses.contains(course)) {
+            enrolledCourses.remove(course);
         }
     }
 
@@ -51,6 +57,10 @@ public class Student extends Person {
         } else {
             System.out.println("Invalid Student ID entered!");
         }
+    }
+
+    public boolean equals(Student student) {
+        return this.studentID == student.getStudentID();
     }
 
     public List<Course> getEnrolledCourses() {

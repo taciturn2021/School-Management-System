@@ -20,10 +20,9 @@ public class StudentAdmissionForm extends JFrame {
         createStudentAdmissionForm();
     }
 
-    void createStudentAdmissionForm(){
+    void createStudentAdmissionForm() {
         setTitle("Student Admission Form");
         setSize(500, 700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
         JLabel nameLabel = new JLabel("Enter your Specifications");
@@ -47,7 +46,7 @@ public class StudentAdmissionForm extends JFrame {
         JTextField emailField = new JTextField();
         emailField.setBounds(150, 140, 200, 30);
 
-        JLabel dateOfBirth = new JLabel("Date of Birth");
+        JLabel dateOfBirth = new JLabel("DOB (DD-MM-YYYY)");
         dateOfBirth.setBounds(50, 180, 100, 30);
 
         JTextField dateOfBirthField = new JTextField();
@@ -89,7 +88,7 @@ public class StudentAdmissionForm extends JFrame {
         JLabel coursesLabel = new JLabel("Select Courses");
         coursesLabel.setBounds(50, 460, 100, 30);
 
-        DefaultListModel<Course> courseListModel = new DefaultListModel<>();
+        DefaultListModel<Course> courseListModel = new DefaultListModel<>(); // List of courses student can enroll into
         List<Course> courses = University.courseRepository.getAll();
         for (Course course : courses) {
             courseListModel.addElement(course);
@@ -112,14 +111,12 @@ public class StudentAdmissionForm extends JFrame {
                     Date dateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());
                     Address address = new Address(addressField.getText(), cityField.getText(), stateField.getText(), zipCodeField.getText(), countryField.getText());
 
-                    Student newStudent = new Student(studentID , name, email, dateOfBirth, address);
+                    Student newStudent = new Student(studentID, name, email, dateOfBirth, address);
                     University.studentRepository.add(newStudent);
 
-                    List<Course> allCourses = new ArrayList<>();
                     for (int i = 0; i < courseListModel.getSize(); i++) {
-                        allCourses.add(courseListModel.getElementAt(i));
+                        University.addStudentToCourse(newStudent, courseListModel.getElementAt(i));
                     }
-                    newStudent.setEnrolledCourses(allCourses);
 
                     JOptionPane.showMessageDialog(StudentAdmissionForm.this, "Student added successfully!");
                     dispose();
@@ -156,4 +153,11 @@ public class StudentAdmissionForm extends JFrame {
 
         setVisible(true);
     }
+
+
 }
+
+
+
+
+
