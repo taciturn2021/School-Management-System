@@ -35,7 +35,7 @@ public class ExceptionUtility {
 
     public static Date parseDateOfBirth(String text) throws InvalidInputException {
         try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(text);
+            return new SimpleDateFormat("dd-MM-yyyy").parse(text);
         } catch (java.text.ParseException e) {
             throw new NumberFormatException("Date of Birth must be a valid integer.");
         }

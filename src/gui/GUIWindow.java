@@ -19,10 +19,8 @@ public class GUIWindow extends JFrame {
     }
 
     private void loadComponents(){
-        // Create the menu bar
-        JMenuBar menuBar = new JMenuBar();
 
-        // Create the Courses menu
+        // Create the top bar menu
         addMenuItems();
 
         // Set the layout and add components
@@ -35,6 +33,43 @@ public class GUIWindow extends JFrame {
         // Create the menu bar
         JMenuBar menuBar = new JMenuBar();
         createCourseMenu(menuBar); // Create the Courses menu
+        createStudentMenu(menuBar); // Create the Students menu
+    }
+
+    private void createStudentMenu(JMenuBar menuBar) {
+        // Create the Students menu
+        JMenu studentMenu = new JMenu("Students");
+        JMenuItem addStudent = new JMenuItem("Add Student");
+        JMenuItem viewStudents = new JMenuItem("View Students");
+        JMenuItem searchStudent = new JMenuItem("Check Enrolled Courses");
+        studentMenu.add(addStudent); // Add menu items to the menu
+        studentMenu.add(viewStudents);
+        studentMenu.add(searchStudent);
+
+        // Add menus to the menu bar
+        menuBar.add(studentMenu);
+
+        // Set the menu bar for the frame
+        setJMenuBar(menuBar);
+
+        // Add action listeners for menu items
+        addStudent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showAddStudentForm();
+            }
+        });
+
+        viewStudents.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // showViewStudents();
+            }
+        });
+
+        searchStudent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showSearchStudent();
+            }
+        });
     }
 
     private void createCourseMenu(JMenuBar menuBar) {
@@ -43,9 +78,11 @@ public class GUIWindow extends JFrame {
         JMenuItem addCourse = new JMenuItem("Add Course");
         JMenuItem viewCourses = new JMenuItem("View Courses");
         JMenuItem searchCourse = new JMenuItem("Search Course");
+        JMenuItem alterStudent = new JMenuItem("Add/Remove Student");
         courseMenu.add(addCourse); // Add menu items to the menu
         courseMenu.add(viewCourses);
         courseMenu.add(searchCourse);
+        courseMenu.add(alterStudent);
 
         // Add menus to the menu bar
         menuBar.add(courseMenu);
@@ -71,19 +108,35 @@ public class GUIWindow extends JFrame {
                 showSearchCourse();
             }
         });
+
+        alterStudent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showAlterStudent();
+            }
+        });
     }
-    public void showAddCourseForm() {
+    private void showAddCourseForm() {
         new CourseAddForm();
     }
-    public void showViewCourses() {
+    private void showViewCourses() {
         new CourseViewTable();
     }
-    public void showSearchCourse() {
+    private void showSearchCourse() {
         new CourseSearchForm();
     }
-    public void showAddStudentForm() { new StudentAdmissionForm(); }
-    public void showTeacherHiringForm() { new TeacherHiringForm(); }
+  
+    private void showAlterStudent() {
+        new AlterCourseStudent();
+    }
 
+    private void showAddStudentForm() {
+        new StudentAdmissionForm();
+    }
 
+    private void showSearchStudent() {
+        new DisplayEnrolledCourses();
+    }
+  
+  public void showTeacherHiringForm() { new TeacherHiringForm(); }
 
 }

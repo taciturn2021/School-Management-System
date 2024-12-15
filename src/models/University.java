@@ -34,6 +34,20 @@ public class University {
         return filteredCourses;
     }
 
+    /* Since there is redundancy in the provided document, allowing enrollment into a course by both a course object and a student object
+    * this method will be used to ensure there are no inconsistencies in the system by calling
+    * both of the corresponding methods in this one method
+     */
+    public static void addStudentToCourse(Student student, Course course){
+        course.addStudent(student);
+        student.enrollInCourse(course);
+    }
+
+    public static void removeStudentFromCourse(Student student, Course course){
+        course.removeStudent(student);
+        student.dropCourse(course);
+    }
+
     public void displaySystemStats(){
 
         for ( Student student : this.studentRepository.getAll() ){

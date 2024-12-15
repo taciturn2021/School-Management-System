@@ -10,7 +10,7 @@ public class Course {
     private ArrayList<Student> enrolledStudents;
 
     public Course(){
-        this("0", "", 0, new Teacher(), new ArrayList<Student>());
+        this("0", "", 0, null, new ArrayList<Student>());
     }
 
 
@@ -30,7 +30,7 @@ public class Course {
     // Functionality
 
     public void addStudent(Student student){
-        if ( student != null){
+        if ( student != null && !enrolledStudents.contains(student) ){
             enrolledStudents.add( student ) ;
             System.out.println("Student " + student.getName() + " Added to " + getCourseName() );
         }
@@ -92,5 +92,9 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String toString(){
+        return getCourseID() + " " + getCourseName();
     }
 }

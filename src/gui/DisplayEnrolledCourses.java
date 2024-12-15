@@ -1,5 +1,6 @@
 package gui;
 
+import models.Student;
 import utils.ExceptionUtility;
 import models.Course;
 import models.University;
@@ -10,29 +11,36 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class CourseSearchForm extends JFrame {
+public class DisplayEnrolledCourses extends JFrame {
 
-    public CourseSearchForm() {
-        setTitle("Search Courses by Credits"); // Set the title of the window
+    public DisplayEnrolledCourses() {
+        setTitle("Search Student by ID"); // Set the title of the window
         setSize(400, 300); // Set the size of the window
         setLayout(new GridLayout(3, 2)); // Set the layout manager
 
-        JLabel idLabel = new JLabel("Course ID: "); // Label for course ID
-        JTextField idField = new JTextField(); // Text field for course ID
-        JLabel creditsLabel = new JLabel("Minimum Credits:"); // Label for minimum credits
-        JComboBox<String> creditsField = new JComboBox<>(new String[]{"2", "3", "4"}); // Combo box for selecting minimum credits
+        JLabel idLabel = new JLabel("Student ID: "); // Label for student ID
+        JTextField idField = new JTextField(); // Text field for student ID
 
-        JButton searchButton = new JButton("Search"); // Button to search courses
+        JButton searchButton = new JButton("Search"); // Button to search for the student
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int minCredits = ExceptionUtility.parseCredits(creditsField.getSelectedItem().toString()); // Parse selected credits
-                    String courseID = idField.getText(); // Get course ID from text field
-                    List<Course> filteredCourses = University.filterCoursesByCredits(minCredits); // Filter courses by credits
-                    showFilteredCourses(filteredCourses, courseID); // Show filtered courses
+                    int studentID = ExceptionUtility.parseStudentID(idField.getText()); // Parse student ID from text field
+                    List<Student> allStudents = University.studentRepository.getAll(); // Retrieve all students from the repository
+                    Student student = null;
+                    for (Student s : allStudents) {
+                        if (s.getStudentID() == studentID) {
+                            student = s; // Find the student with the matching ID
+                            break;
+                        }
+                    }
+                    if (student == null) {
+                        throw new ExceptionUtility.InvalidInputException("Student not found!"); // Throw exception if student not found
+                    }
+                    List<Course> enrolledCourses = student.getEnrolledCourses(); // Get the list of courses the student is enrolled in
+                    showEnrolledCourses(enrolledCourses); // Display the enrolled courses
                 } catch (ExceptionUtility.InvalidInputException ex) {
-                    // Show error message if an exception occurs
-                    JOptionPane.showMessageDialog(CourseSearchForm.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(DisplayEnrolledCourses.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); // Show error message if an exception occurs
                 }
             }
         });
@@ -40,16 +48,14 @@ public class CourseSearchForm extends JFrame {
         // Add components to the form
         add(idLabel);
         add(idField);
-        add(creditsLabel);
-        add(creditsField);
         add(new JLabel()); // Empty cell
         add(searchButton);
 
         setVisible(true); // Make the form visible
     }
 
-    private void showFilteredCourses(List<Course> courses, String courseID) {
-        JFrame resultsFrame = new JFrame("Filtered Courses"); // Create a new frame for displaying filtered courses
+    private void showEnrolledCourses(List<Course> courses) {
+        JFrame resultsFrame = new JFrame("Filtered Courses"); // Create a new frame for displaying enrolled courses
         resultsFrame.setSize(600, 400); // Set the size of the window
         resultsFrame.setLayout(new BorderLayout()); // Set the layout manager
 
@@ -58,8 +64,6 @@ public class CourseSearchForm extends JFrame {
 
         // Populate the data array with course information
         for (int i = 0; i < courses.size(); i++) {
-            if (!courses.get(i).getCourseID().contains(courseID))
-                continue;
             Course course = courses.get(i);
             data[i][0] = course.getCourseID(); // Set course ID
             data[i][1] = course.getCourseName(); // Set course name
