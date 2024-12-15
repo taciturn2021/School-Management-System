@@ -34,6 +34,62 @@ public class GUIWindow extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         createCourseMenu(menuBar); // Create the Courses menu
         createStudentMenu(menuBar); // Create the Students menu
+        createTeacherMenu(menuBar); // Create the Teachers menu
+        createAdminMenu(menuBar); // Create the Admin menu
+    }
+    private void createAdminMenu(JMenuBar menuBar) {
+        // Create the Admin menu
+        JMenu adminMenu = new JMenu("Admin");
+        JMenuItem addAdmin = new JMenuItem("Add Admin");
+        JMenuItem viewAdmins = new JMenuItem("View Admins");
+        adminMenu.add(addAdmin); // Add menu items to the menu
+        adminMenu.add(viewAdmins);
+
+        // Add menus to the menu bar
+        menuBar.add(adminMenu);
+
+        // Set the menu bar for the frame
+        setJMenuBar(menuBar);
+
+        // Add action listeners for menu items
+        addAdmin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showAdminHiringForm();
+            }
+        });
+
+        viewAdmins.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // viewAdmins();
+            }
+        });
+    }
+    private void createTeacherMenu(JMenuBar menuBar) {
+        // Create the Students menu
+        JMenu teacherMenu = new JMenu("Teachers");
+        JMenuItem addTeacher = new JMenuItem("Add Teacher");
+        JMenuItem viewTeachers = new JMenuItem("View Teachers");
+        teacherMenu.add(addTeacher); // Add menu items to the menu
+        teacherMenu.add(viewTeachers);
+
+        // Add menus to the menu bar
+        menuBar.add(teacherMenu);
+
+        // Set the menu bar for the frame
+        setJMenuBar(menuBar);
+
+        // Add action listeners for menu items
+        addTeacher.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showTeacherHiringForm();
+            }
+        });
+
+        viewTeachers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // viewTeachers();
+            }
+        });
     }
 
     private void createStudentMenu(JMenuBar menuBar) {
@@ -138,5 +194,7 @@ public class GUIWindow extends JFrame {
     }
   
   public void showTeacherHiringForm() { new TeacherHiringForm(); }
+
+    public void showAdminHiringForm() { new AdministrationStaffHiringForm(); }
 
 }
