@@ -1,9 +1,7 @@
 package app;
 
-import gui.CourseAddForm;
-import gui.CourseSearchForm;
-import gui.GUIWindow;
-import gui.StudentAdmissionForm;
+import com.sun.source.tree.NewArrayTree;
+import gui.*;
 
 import javax.swing.*;
 

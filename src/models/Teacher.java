@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Teacher extends Person{
     private int teacherID;
@@ -8,16 +9,18 @@ public class Teacher extends Person{
     private String specialization;
     private ArrayList<Course> coursesTaught;
 
-    public Teacher(){
-        this(0, "", "", new ArrayList<Course>());
+    public Teacher() {
+        this(0, "", "", new Date(), new Address(), "", "");
     }
 
-    public Teacher(int teacherID, String department, String specialization, ArrayList<Course> coursesTaught){
+    public Teacher(int teacherID, String name, String email, Date dateOfBirth, Address address , String department, String specialization) {
+        super(name, email, dateOfBirth , address);
         this.teacherID = teacherID;
         this.department = department;
         this.specialization = specialization;
         this.coursesTaught = coursesTaught;
     }
+
     // Functionality
 
     public void assignCourse(Course course){

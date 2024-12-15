@@ -124,6 +124,7 @@ public class GUIWindow extends JFrame {
     private void showSearchCourse() {
         new CourseSearchForm();
     }
+  
     private void showAlterStudent() {
         new AlterCourseStudent();
     }
@@ -131,11 +132,11 @@ public class GUIWindow extends JFrame {
     private void showAddStudentForm() {
         new StudentAdmissionForm();
     }
-//    private void showViewStudents() {
-//        new StudentViewTable();
-//    }
+
     private void showSearchStudent() {
         new DisplayEnrolledCourses();
     }
+  
+  public void showTeacherHiringForm() { new TeacherHiringForm(); }
 
 }
