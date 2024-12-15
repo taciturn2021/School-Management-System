@@ -1,6 +1,8 @@
 package gui;
 
+import com.sun.source.tree.NewArrayTree;
 import models.Course;
+import models.University;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +35,10 @@ public class GUIWindow extends JFrame {
         // Create the menu bar
         JMenuBar menuBar = new JMenuBar();
         createCourseMenu(menuBar); // Create the Courses menu
-        createStudentMenu(menuBar); // Create the Students menu
+        createStudentMenu(menuBar);// Create the Students menu
+        createTeacherMenu(menuBar);// Create the Teacher menu
+        createAdministrationMenu(menuBar);// Create the Administration menu
+        showSystemStats(menuBar); // Create the System Stats menu
     }
 
     private void createStudentMenu(JMenuBar menuBar) {
@@ -115,6 +120,76 @@ public class GUIWindow extends JFrame {
             }
         });
     }
+
+    private void createTeacherMenu(JMenuBar menuBar){
+
+        JMenu teacherMenu = new JMenu("Teachers");
+        JMenuItem hireTeacher = new JMenuItem("Hire Teacher");
+        JMenuItem listTeacherCourses = new JMenuItem("List Teacher Courses");
+        JMenuItem assignCourse = new JMenuItem("Assign Course to Teacher");
+        teacherMenu.add(hireTeacher);
+        teacherMenu.add(listTeacherCourses);
+        teacherMenu.add(assignCourse);
+
+        menuBar.add(teacherMenu);
+
+        hireTeacher.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showTeacherHiringForm();
+            }
+        });
+
+        listTeacherCourses.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ListTeacherCourses();
+            }
+        });
+
+        assignCourse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AssignCourseToTeacher();
+            }
+        });
+
+    }
+
+    private void createAdministrationMenu(JMenuBar menuBar){
+
+        JMenu administrationMenu = new JMenu("Administrative Staff");
+        JMenuItem hireAdministration = new JMenuItem("Hire Administration Staff");
+        administrationMenu.add(hireAdministration);
+
+        menuBar.add(administrationMenu);
+
+        hireAdministration.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showAdministrativeHiringForm();
+            }
+        });
+
+    }
+
+    private void showSystemStats(JMenuBar menuBar) {
+        JMenu systemStats = new JMenu("System Stats");
+        JMenuItem viewStats = new JMenuItem("View Stats");
+        systemStats.add(viewStats);
+
+        menuBar.add(systemStats);
+
+        setJMenuBar(menuBar);
+
+        viewStats.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                University university = new University();
+                university.countUniversityData();
+                JOptionPane.showMessageDialog(null, "Number of Students: " + university.studentCounter + "\nNumber of Teachers: " + university.teacherCounter + "\nNumber of Courses: " + university.courseCounter + "\nNumber of Administrative Staff: " + university.administrativeStaffCounter);
+
+            }
+        });
+
+    }
+
+
     private void showAddCourseForm() {
         new CourseAddForm();
     }
@@ -137,6 +212,9 @@ public class GUIWindow extends JFrame {
         new DisplayEnrolledCourses();
     }
   
-  public void showTeacherHiringForm() { new TeacherHiringForm(); }
+    private void showTeacherHiringForm() { new TeacherHiringForm(); }
+    private void ListTeacherCourses() { new ListTeacherCourses(); }
+    private void showAdministrativeHiringForm() { new AdministrationStaffHiringForm(); }
+    private void AssignCourseToTeacher() { new AssignCourseToTeacher(); }
 
 }

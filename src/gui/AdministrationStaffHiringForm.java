@@ -19,7 +19,6 @@ public class AdministrationStaffHiringForm extends JFrame {
     public void createAdministarionStaffHiringForm() {
         setTitle("Administrative Staff Hiring Form");
         setSize(600, 900); // Set frame size
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setVisible(true);
 

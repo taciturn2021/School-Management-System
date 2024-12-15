@@ -11,6 +11,7 @@ public class Teacher extends Person{
 
     public Teacher() {
         this(0, "", "", new Date(), new Address(), "", "");
+        this.coursesTaught = new ArrayList<>();
     }
 
     public Teacher(int teacherID, String name, String email, Date dateOfBirth, Address address , String department, String specialization) {
@@ -18,7 +19,7 @@ public class Teacher extends Person{
         this.teacherID = teacherID;
         this.department = department;
         this.specialization = specialization;
-        this.coursesTaught = coursesTaught;
+        this.coursesTaught = new ArrayList<>();
     }
 
     // Functionality

@@ -14,10 +14,10 @@ public class University {
     public static Repository<Course> courseRepository = new Repository<Course>();
     public static Repository<AdministrativeStaff> administrativeStaffRepository = new Repository<AdministrativeStaff>();
 
-    private static int studentCounter = 0;
-    private static int teacherCounter = 0;
-    private static int courseCounter = 0;
-    private static int administrativeStaffCounter = 0;
+    public static int studentCounter = 0;
+    public static int teacherCounter = 0;
+    public static int courseCounter = 0;
+    public static int administrativeStaffCounter = 0;
 
     public University(){
     }
@@ -48,7 +48,7 @@ public class University {
         student.dropCourse(course);
     }
 
-    public void displaySystemStats(){
+    public void countUniversityData(){
 
         for ( Student student : this.studentRepository.getAll() ){
             studentCounter++ ;
@@ -65,11 +65,6 @@ public class University {
         for ( AdministrativeStaff administrativeStaff : this.administrativeStaffRepository.getAll() ){
             administrativeStaffCounter++ ;
         }
-
-        System.out.println("Students: " + studentCounter);
-        System.out.println("Teachers: " + teacherCounter);
-        System.out.println("Courses: " + courseCounter);
-        System.out.println("AdministrativeStaff: " + administrativeStaffCounter);
 
     }
 
