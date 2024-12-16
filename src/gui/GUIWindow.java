@@ -217,9 +217,7 @@ public class GUIWindow extends JFrame {
 
         viewStats.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                University university = new University();
-                university.countUniversityData();
-                JOptionPane.showMessageDialog(null, "Number of Students: " + university.studentCounter + "\nNumber of Teachers: " + university.teacherCounter + "\nNumber of Courses: " + university.courseCounter + "\nNumber of Administrative Staff: " + university.administrativeStaffCounter);
+                JOptionPane.showMessageDialog(null, "Number of Students: " + University.studentCounter + "\nNumber of Teachers: " + University.teacherCounter + "\nNumber of Courses: " + University.courseCounter + "\nNumber of Administrative Staff: " + University.administrativeStaffCounter);
 
             }
         });

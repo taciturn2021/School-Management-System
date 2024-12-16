@@ -2,6 +2,8 @@ package repositories;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import models.Course;
 import models.Student ;
 import models.Teacher ;
 import models.AdministrativeStaff ;
@@ -14,16 +16,20 @@ public class Repository<T> {
     public void add(T item) {
         items.add(item);
 
+        if ( item instanceof Course){
+            System.out.println("Course: " + ((Course) item).getCourseID() + " added to the repository");
+        }
+
         if ( item instanceof Student){
-            System.out.println("Student: " + ((Student) item).getStudentID() + "added to the repository");
+            System.out.println("Student: " + ((Student) item).getStudentID() + " added to the repository");
         }
 
         if ( item instanceof Teacher){
-            System.out.println("Teacher: " + ((Teacher) item).getTeacherID() + " " + "added to the repository");
+            System.out.println("Teacher: " + ((Teacher) item).getTeacherID() + " " + " added to the repository");
         }
 
         if ( item instanceof AdministrativeStaff){
-            System.out.println("Administrative Staff: " + ((AdministrativeStaff) item).getStaffID() + " " + "added to the repository");
+            System.out.println("Administrative Staff: " + ((AdministrativeStaff) item).getStaffID() + " " + " added to the repository");
         }
 
     }
@@ -31,16 +37,20 @@ public class Repository<T> {
     public void remove(T item) {
         items.remove(item);
 
+        if ( item instanceof Course){
+            System.out.println("Course: " + ((Course) item).getCourseID() + " removed from the repository");
+        }
+
         if ( item instanceof Student){
-            System.out.println("Student: " + ((Student) item).getStudentID() + "removed from the repository");
+            System.out.println("Student: " + ((Student) item).getStudentID() + " removed from the repository");
         }
 
         if ( item instanceof Teacher){
-            System.out.println("Teacher: " + ((Teacher) item).getTeacherID() + "removed from the repository");
+            System.out.println("Teacher: " + ((Teacher) item).getTeacherID() + " removed from the repository");
         }
 
         if ( item instanceof AdministrativeStaff){
-            System.out.println("Administrative Staff: " + ((AdministrativeStaff) item).getStaffID() + "removed from the repository");
+            System.out.println("Administrative Staff: " + ((AdministrativeStaff) item).getStaffID() + " removed from the repository");
         }
     }
 

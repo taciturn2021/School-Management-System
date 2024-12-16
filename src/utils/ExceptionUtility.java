@@ -56,4 +56,13 @@ public class ExceptionUtility {
             throw new NumberFormatException("Staff ID must be a valid integer.");
         }
     }
+
+    public static boolean nullCheck(Object object) throws InvalidInputException {
+        try{
+            return object != null;
+        }
+        catch (Exception e){
+            throw new InvalidInputException("Object is null");
+        }
+    }
 }

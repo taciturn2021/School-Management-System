@@ -117,7 +117,7 @@ public class TeacherHiringForm extends JFrame {
 
                     Address address = new Address(streetAddress, city, state, zipCode , country);
                     Teacher teacher = new Teacher(teacherID, name, email, dateOfBirth, address , department, specialization);
-                    University.teacherRepository.add(teacher);
+                    University.addToTeacherRepository(teacher);
 
                     JOptionPane.showMessageDialog(null, "Teacher added successfully.");
                 } catch (Exception ex) {

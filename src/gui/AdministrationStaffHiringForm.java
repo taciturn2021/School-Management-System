@@ -113,7 +113,7 @@ public class AdministrationStaffHiringForm extends JFrame {
                     Address address = new Address(staffStreetAddress, staffCity, staffState, staffZipCode, staffCountry);
                     AdministrativeStaff administrativeStaff = new AdministrativeStaff(staffId, staffName, staffDateOfBirth , staffEmail , address ,staffRole, staffDepartment);
 
-                    University.administrativeStaffRepository.add(administrativeStaff);
+                    University.addToAdministrativeStaffRepository(administrativeStaff);
 
                     JOptionPane.showMessageDialog(null, "Administration Staff added successfully.");
                 } catch (Exception ex) {
