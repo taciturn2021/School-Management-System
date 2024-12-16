@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class AdministrativeStaff extends Person {
+public class AdministrativeStaff extends Person implements Serializable {
     private int staffID;
     private String role;
     private String department;

@@ -2,6 +2,7 @@ package models;
 
 import repositories.Repository;
 import utils.ExceptionUtility;
+import utils.FileHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ public class University {
     public static int teacherCounter = 0;
     public static int courseCounter = 0;
     public static int administrativeStaffCounter = 0;
-
     public University(){
+
     }
 
 
@@ -55,6 +56,19 @@ public class University {
                 System.out.println(course.getClass());
                 courseRepository.add(course);
                 courseCounter++;
+                FileHandler.SaveData();
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void removeFromCourseRepository(Course course){
+        try{
+            if (ExceptionUtility.nullCheck(course)) {
+                courseRepository.remove(course);
+                courseCounter--;
+                FileHandler.SaveData();
             }
         }
         catch (Exception e){
@@ -67,6 +81,7 @@ public class University {
             if (ExceptionUtility.nullCheck(student)) {
                 studentRepository.add(student);
                 studentCounter++;
+                FileHandler.SaveData();
             }
         }
         catch (Exception e){
@@ -79,6 +94,7 @@ public class University {
             if (ExceptionUtility.nullCheck(teacher)) {
                 teacherRepository.add(teacher);
                 teacherCounter++;
+                FileHandler.SaveData();
             }
         }
         catch (Exception e){
@@ -91,6 +107,7 @@ public class University {
             if (ExceptionUtility.nullCheck(administrativeStaff)) {
                 administrativeStaffRepository.add(administrativeStaff);
                 administrativeStaffCounter++;
+                FileHandler.SaveData();
             }
         }
         catch (Exception e){

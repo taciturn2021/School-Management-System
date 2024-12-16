@@ -1,10 +1,11 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Student extends Person {
+public class Student extends Person implements Serializable {
     private int studentID;
     private List<Course> enrolledCourses;
 

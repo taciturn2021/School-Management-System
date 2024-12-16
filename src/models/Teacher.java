@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Teacher extends Person{
+public class Teacher extends Person implements Serializable {
     private int teacherID;
     private String department;
     private String specialization;

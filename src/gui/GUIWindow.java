@@ -1,6 +1,7 @@
 package gui;
 
 import models.University;
+import utils.FileHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,12 @@ public class GUIWindow extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        try {
+            FileHandler.loadData();
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
+        }
         loadComponents(); // Load components
         setVisible(true);
     }
@@ -109,7 +115,7 @@ public class GUIWindow extends JFrame {
     private void createCourseMenu(JMenuBar menuBar) {
         // Create the Courses menu
         JMenu courseMenu = new JMenu("Courses");
-        JMenuItem addCourse = new JMenuItem("Add Course");
+        JMenuItem addCourse = new JMenuItem("Add/Remove Course");
         JMenuItem viewCourses = new JMenuItem("View Courses");
         JMenuItem searchCourse = new JMenuItem("Search Course");
         JMenuItem alterStudent = new JMenuItem("Add/Remove Student");

@@ -1,10 +1,11 @@
 package models;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 // Generic Inheritable Person class
 
-public class Person {
+public class Person implements Serializable {
     private String name;
     private String email;
     private Date dateOfBirth;

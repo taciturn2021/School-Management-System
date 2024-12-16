@@ -9,34 +9,28 @@ public class FileHandler implements Serializable{
 
 
     // Loads data university data
-    public void loadData(String filename ) throws IOException , FileNotFoundException {
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream( new FileInputStream( "University_data.dat" )) ;
-
-            while ( new Scanner( objectInputStream ).hasNext() ){
-
-                Object object = objectInputStream.readObject() ;
-
-                if ( object instanceof Teacher){
-                    University.teacherRepository.add((Teacher) object);
+    public static void loadData() throws IOException, FileNotFoundException {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("resources/data/uniData.dat"))) {
+            while (true) {
+                try {
+                    Object object = objectInputStream.readObject();
+                    if (object instanceof Teacher) {
+                        University.teacherRepository.add((Teacher) object);
+                    } else if (object instanceof Student) {
+                        University.studentRepository.add((Student) object);
+                    } else if (object instanceof Course) {
+                        University.courseRepository.add((Course) object);
+                    } else if (object instanceof AdministrativeStaff) {
+                        University.administrativeStaffRepository.add((AdministrativeStaff) object);
+                    }
+                } catch (EOFException e) {
+                    break; // End of file reached
                 }
-                if ( object instanceof Student){
-                    University.studentRepository.add((Student) object);
-                }
-                if ( object instanceof Course){
-                    University.administrativeStaffRepository.add( (AdministrativeStaff) object );
-                }
-                if ( object instanceof AdministrativeStaff){
-                    University.courseRepository.add( (Course) object );
-                }
-
             }
-        }
-        catch ( FileNotFoundException ex ){
-            FileNotFoundException exc = new FileNotFoundException("University data File not found!") ;
-            System.out.println(exc.getMessage());
-        }
-        catch (Exception ex){
+            loadCounts();
+        } catch (FileNotFoundException ex) {
+            System.out.println("University data File not found!");
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -44,11 +38,9 @@ public class FileHandler implements Serializable{
     }
 
     // saves university data
-    public void SaveData( String filename ) throws IOException , FileNotFoundException {
+    public static void SaveData() throws IOException , FileNotFoundException {
         try {
-            if (!new File(filename).exists()) {
-                File universityFile = new File(filename);
-            }
+            String filename = "resources/data/uniData.dat" ;
 
             ObjectOutputStream objectoutputStream = new ObjectOutputStream(new FileOutputStream(filename));
 
@@ -71,6 +63,7 @@ public class FileHandler implements Serializable{
                 Course tempCourse = course ;
                 objectoutputStream.writeObject(tempCourse);
             }
+            saveCounts(University.courseCounter, University.studentCounter, University.teacherCounter, University.administrativeStaffCounter);
 
         }
         catch (FileNotFoundException ex){
@@ -82,6 +75,37 @@ public class FileHandler implements Serializable{
         }
 
         System.out.println("Data Successfully saved to the University data file");
+    }
+
+    private static void saveCounts(int courseCounter, int studentCounter, int teacherCounter, int administrativeStaffCounter) throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter("resources/data/counts.txt");
+            fileWriter.write(courseCounter + "\n");
+            fileWriter.write(studentCounter + "\n");
+            fileWriter.write(teacherCounter + "\n");
+            fileWriter.write(administrativeStaffCounter + "\n");
+            fileWriter.close();
+        } catch (FileNotFoundException ex) {
+            FileNotFoundException exc = new FileNotFoundException("University data File not found!");
+            System.out.println(exc.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private static void loadCounts() throws IOException {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("resources/data/counts.txt"));
+            University.courseCounter = Integer.parseInt(bufferedReader.readLine());
+            University.studentCounter = Integer.parseInt(bufferedReader.readLine());
+            University.teacherCounter = Integer.parseInt(bufferedReader.readLine());
+            University.administrativeStaffCounter = Integer.parseInt(bufferedReader.readLine());
+        } catch (FileNotFoundException ex) {
+            FileNotFoundException exc = new FileNotFoundException("University data File not found!");
+            System.out.println(exc.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 
