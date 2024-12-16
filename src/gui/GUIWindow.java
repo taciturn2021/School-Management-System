@@ -1,7 +1,5 @@
 package gui;
 
-import com.sun.source.tree.NewArrayTree;
-import models.Course;
 import models.University;
 
 import javax.swing.*;
@@ -13,22 +11,53 @@ public class GUIWindow extends JFrame {
 
     public GUIWindow() {
         setTitle("School Management System");
-        setSize(800, 600);
+        setSize(600, 400);
+
+        // Set the background color of the content pane
+        getContentPane().setBackground(Color.GRAY);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
         loadComponents(); // Load components
         setVisible(true);
     }
 
-    private void loadComponents(){
-
+    private void loadComponents() {
         // Create the top bar menu
         addMenuItems();
 
         // Set the layout and add components
         setLayout(new BorderLayout());
+
+        // Create a panel to hold the welcome label and image label
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.GRAY);
+
+        // Load the image
+        ImageIcon originalIcon = new ImageIcon("src/images/School Management System.png");
+        Image originalImage = originalIcon.getImage();
+
+        // Scale the image to the desired size
+        Image scaledImage = originalImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Create a label with the scaled image
+        JLabel imageLabel = new JLabel(scaledIcon);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Create the welcome label
         JLabel welcomeLabel = new JLabel("Welcome to the School Management System", JLabel.CENTER);
-        add(welcomeLabel, BorderLayout.CENTER);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Add the image label and welcome label to the panel
+        panel.add(imageLabel);
+        panel.add(welcomeLabel);
+
+        // Add the panel to the frame
+        add(panel, BorderLayout.CENTER);
     }
 
     private void addMenuItems() {
@@ -127,9 +156,11 @@ public class GUIWindow extends JFrame {
         JMenuItem hireTeacher = new JMenuItem("Hire Teacher");
         JMenuItem listTeacherCourses = new JMenuItem("List Teacher Courses");
         JMenuItem assignCourse = new JMenuItem("Assign Course to Teacher");
+        JMenuItem viewTeachers = new JMenuItem("View Teachers");
         teacherMenu.add(hireTeacher);
         teacherMenu.add(listTeacherCourses);
         teacherMenu.add(assignCourse);
+        teacherMenu.add(viewTeachers);
 
         menuBar.add(teacherMenu);
 
@@ -148,6 +179,12 @@ public class GUIWindow extends JFrame {
         assignCourse.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AssignCourseToTeacher();
+            }
+        });
+
+        viewTeachers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showTeacherTable();
             }
         });
 
@@ -216,5 +253,7 @@ public class GUIWindow extends JFrame {
     private void ListTeacherCourses() { new ListTeacherCourses(); }
     private void showAdministrativeHiringForm() { new AdministrationStaffHiringForm(); }
     private void AssignCourseToTeacher() { new AssignCourseToTeacher(); }
+    private void showTeacherTable() { new ViewTeacherTable(); }
+
 
 }

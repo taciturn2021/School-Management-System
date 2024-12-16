@@ -24,7 +24,7 @@ public class ListTeacherCourses extends JFrame {
 
     public void createListTeacherCourses() {
         setTitle("List Teacher Courses");
-        setSize(500, 800);
+        setSize(800, 600);
         setLayout(null);
         setVisible(true);
 
