@@ -32,13 +32,18 @@ public class Student extends Person {
     }
 
     public void enrollInCourse(Course course) {
-        if (course != null && !enrolledCourses.contains(course)) {
+        if ( course != null && enrolledCourses.size() == 0) {
             enrolledCourses.add(course);
+            return;
+        }
+        if (course != null && !enrolledCourses.contains(course))  {
+            enrolledCourses.add(course);
+
         }
     }
 
     public void dropCourse(Course course) {
-        if (course != null && enrolledCourses.contains(course)) {
+        if (course != null && enrolledCourses.size() != 0 && enrolledCourses.contains(course)) {
             enrolledCourses.remove(course);
         }
     }

@@ -1,6 +1,7 @@
 package models;
 
 import repositories.Repository;
+import utils.ExceptionUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,10 @@ public class University {
     public static Repository<Course> courseRepository = new Repository<Course>();
     public static Repository<AdministrativeStaff> administrativeStaffRepository = new Repository<AdministrativeStaff>();
 
-    private static int studentCounter = 0;
-    private static int teacherCounter = 0;
-    private static int courseCounter = 0;
-    private static int administrativeStaffCounter = 0;
+    public static int studentCounter = 0;
+    public static int teacherCounter = 0;
+    public static int courseCounter = 0;
+    public static int administrativeStaffCounter = 0;
 
     public University(){
     }
@@ -48,29 +49,53 @@ public class University {
         student.dropCourse(course);
     }
 
-    public void displaySystemStats(){
-
-        for ( Student student : this.studentRepository.getAll() ){
-            studentCounter++ ;
+    public static void addToCourseRepository(Course course){
+        try{
+            if (ExceptionUtility.nullCheck(course)) {
+                System.out.println(course.getClass());
+                courseRepository.add(course);
+                courseCounter++;
+            }
         }
-
-        for ( Teacher teacher : this.teacherRepository.getAll() ){
-            teacherCounter++ ;
+        catch (Exception e){
+            System.out.println(e.getMessage());
         }
+    }
 
-        for ( Course course : this.courseRepository.getAll() ){
-            courseCounter++ ;
+    public static void addToStudentRepository(Student student){
+        try{
+            if (ExceptionUtility.nullCheck(student)) {
+                studentRepository.add(student);
+                studentCounter++;
+            }
         }
-
-        for ( AdministrativeStaff administrativeStaff : this.administrativeStaffRepository.getAll() ){
-            administrativeStaffCounter++ ;
+        catch (Exception e){
+            System.out.println(e.getMessage());
         }
+    }
 
-        System.out.println("Students: " + studentCounter);
-        System.out.println("Teachers: " + teacherCounter);
-        System.out.println("Courses: " + courseCounter);
-        System.out.println("AdministrativeStaff: " + administrativeStaffCounter);
+    public static void addToTeacherRepository(Teacher teacher){
+        try{
+            if (ExceptionUtility.nullCheck(teacher)) {
+                teacherRepository.add(teacher);
+                teacherCounter++;
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
+    public static void addToAdministrativeStaffRepository(AdministrativeStaff administrativeStaff){
+        try{
+            if (ExceptionUtility.nullCheck(administrativeStaff)) {
+                administrativeStaffRepository.add(administrativeStaff);
+                administrativeStaffCounter++;
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     // Getters and Setters

@@ -19,7 +19,6 @@ public class AdministrationStaffHiringForm extends JFrame {
     public void createAdministarionStaffHiringForm() {
         setTitle("Administrative Staff Hiring Form");
         setSize(600, 900); // Set frame size
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setVisible(true);
 
@@ -114,7 +113,7 @@ public class AdministrationStaffHiringForm extends JFrame {
                     Address address = new Address(staffStreetAddress, staffCity, staffState, staffZipCode, staffCountry);
                     AdministrativeStaff administrativeStaff = new AdministrativeStaff(staffId, staffName, staffDateOfBirth , staffEmail , address ,staffRole, staffDepartment);
 
-                    University.administrativeStaffRepository.add(administrativeStaff);
+                    University.addToAdministrativeStaffRepository(administrativeStaff);
 
                     JOptionPane.showMessageDialog(null, "Administration Staff added successfully.");
                 } catch (Exception ex) {

@@ -112,7 +112,7 @@ public class StudentAdmissionForm extends JFrame {
                     Address address = new Address(addressField.getText(), cityField.getText(), stateField.getText(), zipCodeField.getText(), countryField.getText());
 
                     Student newStudent = new Student(studentID, name, email, dateOfBirth, address);
-                    University.studentRepository.add(newStudent);
+                    University.addToStudentRepository(newStudent);
 
                     for (int i = 0; i < courseListModel.getSize(); i++) {
                         University.addStudentToCourse(newStudent, courseListModel.getElementAt(i));

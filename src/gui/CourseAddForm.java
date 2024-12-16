@@ -37,7 +37,7 @@ public class CourseAddForm extends JFrame {
                     // Create a new course object
                     Course newCourse = new Course(courseID, title, credits);
                     // Add the new course to the university's course repository
-                    University.courseRepository.add(newCourse);
+                    University.addToCourseRepository(newCourse);
 
                     // Show success message
                     JOptionPane.showMessageDialog(CourseAddForm.this, "Course added successfully!");

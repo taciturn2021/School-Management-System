@@ -21,7 +21,6 @@ public class TeacherHiringForm extends JFrame {
     public void createTeacherHiringForm(){
         setTitle("Teacher Hiring Form");
         setSize(500, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setVisible(true);
 
@@ -97,22 +96,8 @@ public class TeacherHiringForm extends JFrame {
         JTextField specializationField = new JTextField();
         specializationField.setBounds(150, 500, 200, 30);
 
-        JLabel coursesLabel = new JLabel("Select Courses Taught");
-        coursesLabel.setBounds(50, 540, 150, 30);
-
-        DefaultListModel<Course> courseListModel = new DefaultListModel<>();
-        List<Course> courses = University.courseRepository.getAll();
-        for (Course course : courses) {
-            courseListModel.addElement(course);
-        }
-
-        JList<Course> courseList = new JList<>(courseListModel);
-        courseList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        JScrollPane courseScrollPane = new JScrollPane(courseList);
-        courseScrollPane.setBounds(150, 580, 200, 100);
-
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(200, 700, 100, 30); // Adjusted y position to 700
+        submitButton.setBounds(50, 540 , 100, 30); // Adjusted y position to 700
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -129,17 +114,10 @@ public class TeacherHiringForm extends JFrame {
                     String department = departmentField.getText();
                     String specialization = specializationField.getText();
                     String zipCode = zipCodeField.getText();
-                    List<Course> coursesTaught = courseList.getSelectedValuesList();
 
                     Address address = new Address(streetAddress, city, state, zipCode , country);
                     Teacher teacher = new Teacher(teacherID, name, email, dateOfBirth, address , department, specialization);
-                    University.teacherRepository.add(teacher);
-
-                    ArrayList<Course> coursesTaughtList = new ArrayList<>();
-                    for (Course course : coursesTaught) {
-                        coursesTaughtList.add(course);
-                    }
-                    teacher.setCoursesTaught(coursesTaughtList);
+                    University.addToTeacherRepository(teacher);
 
                     JOptionPane.showMessageDialog(null, "Teacher added successfully.");
                 } catch (Exception ex) {
@@ -172,8 +150,6 @@ public class TeacherHiringForm extends JFrame {
         add(departmentField);
         add(specialization);
         add(specializationField);
-        add(coursesLabel);
-        add(courseScrollPane);
         add(submitButton);
     }
 }

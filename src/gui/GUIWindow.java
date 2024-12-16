@@ -1,6 +1,6 @@
 package gui;
 
-import models.Course;
+import models.University;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,85 +11,63 @@ public class GUIWindow extends JFrame {
 
     public GUIWindow() {
         setTitle("School Management System");
-        setSize(800, 600);
+        setSize(600, 400);
+
+        // Set the background color of the content pane
+        getContentPane().setBackground(Color.GRAY);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
         loadComponents(); // Load components
         setVisible(true);
     }
 
-    private void loadComponents(){
-
+    private void loadComponents() {
         // Create the top bar menu
         addMenuItems();
 
         // Set the layout and add components
         setLayout(new BorderLayout());
+
+        // Create a panel to hold the welcome label and image label
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.GRAY);
+
+        // Load the image
+        ImageIcon originalIcon = new ImageIcon("src/images/School Management System.png");
+        Image originalImage = originalIcon.getImage();
+
+        // Scale the image to the desired size
+        Image scaledImage = originalImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Create a label with the scaled image
+        JLabel imageLabel = new JLabel(scaledIcon);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Create the welcome label
         JLabel welcomeLabel = new JLabel("Welcome to the School Management System", JLabel.CENTER);
-        add(welcomeLabel, BorderLayout.CENTER);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Add the image label and welcome label to the panel
+        panel.add(imageLabel);
+        panel.add(welcomeLabel);
+
+        // Add the panel to the frame
+        add(panel, BorderLayout.CENTER);
     }
 
     private void addMenuItems() {
         // Create the menu bar
         JMenuBar menuBar = new JMenuBar();
         createCourseMenu(menuBar); // Create the Courses menu
-        createStudentMenu(menuBar); // Create the Students menu
-        createTeacherMenu(menuBar); // Create the Teachers menu
-        createAdminMenu(menuBar); // Create the Admin menu
-    }
-    private void createAdminMenu(JMenuBar menuBar) {
-        // Create the Admin menu
-        JMenu adminMenu = new JMenu("Admin");
-        JMenuItem addAdmin = new JMenuItem("Add Admin");
-        JMenuItem viewAdmins = new JMenuItem("View Admins");
-        adminMenu.add(addAdmin); // Add menu items to the menu
-        adminMenu.add(viewAdmins);
-
-        // Add menus to the menu bar
-        menuBar.add(adminMenu);
-
-        // Set the menu bar for the frame
-        setJMenuBar(menuBar);
-
-        // Add action listeners for menu items
-        addAdmin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                showAdminHiringForm();
-            }
-        });
-
-        viewAdmins.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // viewAdmins();
-            }
-        });
-    }
-    private void createTeacherMenu(JMenuBar menuBar) {
-        // Create the Students menu
-        JMenu teacherMenu = new JMenu("Teachers");
-        JMenuItem addTeacher = new JMenuItem("Add Teacher");
-        JMenuItem viewTeachers = new JMenuItem("View Teachers");
-        teacherMenu.add(addTeacher); // Add menu items to the menu
-        teacherMenu.add(viewTeachers);
-
-        // Add menus to the menu bar
-        menuBar.add(teacherMenu);
-
-        // Set the menu bar for the frame
-        setJMenuBar(menuBar);
-
-        // Add action listeners for menu items
-        addTeacher.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                showTeacherHiringForm();
-            }
-        });
-
-        viewTeachers.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // viewTeachers();
-            }
-        });
+        createStudentMenu(menuBar);// Create the Students menu
+        createTeacherMenu(menuBar);// Create the Teacher menu
+        createAdministrationMenu(menuBar);// Create the Administration menu
+        showSystemStats(menuBar); // Create the System Stats menu
     }
 
     private void createStudentMenu(JMenuBar menuBar) {
@@ -171,6 +149,82 @@ public class GUIWindow extends JFrame {
             }
         });
     }
+
+    private void createTeacherMenu(JMenuBar menuBar){
+
+        JMenu teacherMenu = new JMenu("Teachers");
+        JMenuItem hireTeacher = new JMenuItem("Hire Teacher");
+        JMenuItem listTeacherCourses = new JMenuItem("List Teacher Courses");
+        JMenuItem assignCourse = new JMenuItem("Assign Course to Teacher");
+        JMenuItem viewTeachers = new JMenuItem("View Teachers");
+        teacherMenu.add(hireTeacher);
+        teacherMenu.add(listTeacherCourses);
+        teacherMenu.add(assignCourse);
+        teacherMenu.add(viewTeachers);
+
+        menuBar.add(teacherMenu);
+
+        hireTeacher.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showTeacherHiringForm();
+            }
+        });
+
+        listTeacherCourses.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ListTeacherCourses();
+            }
+        });
+
+        assignCourse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AssignCourseToTeacher();
+            }
+        });
+
+        viewTeachers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showTeacherTable();
+            }
+        });
+
+    }
+
+    private void createAdministrationMenu(JMenuBar menuBar){
+
+        JMenu administrationMenu = new JMenu("Administrative Staff");
+        JMenuItem hireAdministration = new JMenuItem("Hire Administration Staff");
+        administrationMenu.add(hireAdministration);
+
+        menuBar.add(administrationMenu);
+
+        hireAdministration.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showAdministrativeHiringForm();
+            }
+        });
+
+    }
+
+    private void showSystemStats(JMenuBar menuBar) {
+        JMenu systemStats = new JMenu("System Stats");
+        JMenuItem viewStats = new JMenuItem("View Stats");
+        systemStats.add(viewStats);
+
+        menuBar.add(systemStats);
+
+        setJMenuBar(menuBar);
+
+        viewStats.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Number of Students: " + University.studentCounter + "\nNumber of Teachers: " + University.teacherCounter + "\nNumber of Courses: " + University.courseCounter + "\nNumber of Administrative Staff: " + University.administrativeStaffCounter);
+
+            }
+        });
+
+    }
+
+
     private void showAddCourseForm() {
         new CourseAddForm();
     }
@@ -193,8 +247,11 @@ public class GUIWindow extends JFrame {
         new DisplayEnrolledCourses();
     }
   
-  public void showTeacherHiringForm() { new TeacherHiringForm(); }
+    private void showTeacherHiringForm() { new TeacherHiringForm(); }
+    private void ListTeacherCourses() { new ListTeacherCourses(); }
+    private void showAdministrativeHiringForm() { new AdministrationStaffHiringForm(); }
+    private void AssignCourseToTeacher() { new AssignCourseToTeacher(); }
+    private void showTeacherTable() { new ViewTeacherTable(); }
 
-    public void showAdminHiringForm() { new AdministrationStaffHiringForm(); }
 
 }
