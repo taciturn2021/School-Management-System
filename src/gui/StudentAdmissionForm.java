@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-
 import models.Student;
 import models.University;
 import models.Address;
@@ -30,6 +29,12 @@ public class StudentAdmissionForm extends JFrame {
                 dispose();
             }
         });
+
+        JLabel actionLabel = new JLabel("Action:");
+        actionLabel.setBounds(50, 20, 500, 30);
+        String[] actions = {"Add", "Remove"};
+        JComboBox<String> actionComboBox = new JComboBox<>(actions);
+        actionComboBox.setBounds(150, 20, 500, 30);
 
         JLabel nameLabel = new JLabel("Enter your Specifications");
         nameLabel.setBounds(50, 60, 500, 30);
@@ -94,35 +99,86 @@ public class StudentAdmissionForm extends JFrame {
         JButton submitButton = new JButton("Submit");
         submitButton.setBounds(330, 510, 100, 30);
 
+        actionComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedAction = (String) actionComboBox.getSelectedItem();
+                boolean isAddAction = "Add".equals(selectedAction);
+                nameField.setEnabled(isAddAction);
+                emailField.setEnabled(isAddAction);
+                dateOfBirthField.setEnabled(isAddAction);
+                addressField.setEnabled(isAddAction);
+                cityField.setEnabled(isAddAction);
+                stateField.setEnabled(isAddAction);
+                zipCodeField.setEnabled(isAddAction);
+                countryField.setEnabled(isAddAction);
+            }
+        });
+
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    String name = nameField.getText();
-                    String email = emailField.getText();
-                    int studentID = ExceptionUtility.parseStudentID(studentIDField.getText(),true);
-                    Date dateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());
-                    Address address = new Address(addressField.getText(), cityField.getText(), stateField.getText(), zipCodeField.getText(), countryField.getText());
+                String selectedAction = (String) actionComboBox.getSelectedItem();
+                String studentIDText = studentIDField.getText();
 
-                    Student newStudent = new Student(studentID, name, email, dateOfBirth, address);
-                    University.addToStudentRepository(newStudent);
-
-                    JOptionPane.showMessageDialog(StudentAdmissionForm.this, "Student added successfully!");
-
+                if ("Add".equals(selectedAction)) {
                     try {
-                        FileHandler.saveData();
+                        String name = nameField.getText();
+                        String email = emailField.getText();
+                        int studentID = ExceptionUtility.parseStudentID(studentIDText, true);
+                        Date dateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());
+                        Address address = new Address(addressField.getText(), cityField.getText(), stateField.getText(), zipCodeField.getText(), countryField.getText());
+
+                        Student newStudent = new Student(studentID, name, email, dateOfBirth, address);
+                        University.addToStudentRepository(newStudent);
+
+                        JOptionPane.showMessageDialog(StudentAdmissionForm.this, "Student added successfully!");
+
+                        try {
+                            FileHandler.saveData();
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(StudentAdmissionForm.this, "An error occurred: " + ex.getMessage());
+                        }
+
+                        dispose();
+
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(StudentAdmissionForm.this, "An error occurred: " + ex.getMessage());
                     }
+                } else if ("Remove".equals(selectedAction)) {
+                    try {
+                        int studentID = ExceptionUtility.parseStudentID(studentIDText);
+                        Student student = null;
+                        for (Student s : University.studentRepository.getAll()) {
+                            if (s.getStudentID() == studentID) {
+                                student = s;
+                                break;
+                            }
+                        }
 
-                    dispose();
+                        if (student != null) {
+                            University.removeFromStudentRepository(student);
+                            JOptionPane.showMessageDialog(StudentAdmissionForm.this, "Student removed successfully!");
+                        } else {
+                            JOptionPane.showMessageDialog(StudentAdmissionForm.this, "Student not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
 
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(StudentAdmissionForm.this, "An error occurred: " + ex.getMessage());
+                        try {
+                            FileHandler.saveData();
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(StudentAdmissionForm.this, "An error occurred: " + ex.getMessage());
+                        }
+
+                        dispose();
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(StudentAdmissionForm.this, "An error occurred: " + ex.getMessage());
+                    }
                 }
             }
         });
 
         add(backButton);
+        add(actionLabel);
+        add(actionComboBox);
         add(nameLabel);
         add(studentID);
         add(studentIDField);

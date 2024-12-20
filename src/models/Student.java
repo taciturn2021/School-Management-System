@@ -21,6 +21,7 @@ public class Student extends Person implements Serializable {
     public Student(int studentID, String name, String email, Date dateOfBirth, Address address) {
         super(name, email, dateOfBirth, address);
         this.studentID = studentID;
+        this.enrolledCourses = new ArrayList<>();
     }
 
     @Override

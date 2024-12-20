@@ -83,13 +83,11 @@ public class GUIWindow extends JFrame {
         JMenu studentMenu = new JMenu("Students");
         JMenuItem addStudent = new JMenuItem("Add Student");
         JMenuItem viewStudents = new JMenuItem("View Students");
-        JMenuItem addRemoveCourse = new JMenuItem("Add/Remove Course");
         JMenuItem searchStudent = new JMenuItem("Check Enrolled Courses");
 
         studentMenu.add(addStudent); // Add menu items to the menu
         studentMenu.add(viewStudents);
         studentMenu.add(searchStudent);
-        studentMenu.add(addRemoveCourse);
 
         // Add menus to the menu bar
         menuBar.add(studentMenu);
@@ -116,11 +114,6 @@ public class GUIWindow extends JFrame {
             }
         });
 
-        addRemoveCourse.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addRemoveStudentFromCourse();
-            }
-        });
 
     }
 
@@ -280,7 +273,6 @@ public class GUIWindow extends JFrame {
     private void showStudentTable() { new ViewStudentTable(WIDTH , HEIGHT); }
     private void generateTeacherReport() { new GenerateTeacherReport(WIDTH , HEIGHT); }
     private void showAdministrativeTable() { new ViewAdministrativeTable(WIDTH , HEIGHT); }
-    private void addRemoveStudentFromCourse() { new AddRemoveCourseFromStudent(WIDTH , HEIGHT); }
 
 
 }

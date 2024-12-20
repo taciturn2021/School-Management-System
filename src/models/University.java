@@ -113,6 +113,30 @@ public class University {
         }
     }
 
+    // Removes a student from the student repository
+    // University.java
+    public static void removeFromStudentRepository(Student student) {
+        try {
+            if (ExceptionUtility.nullCheck(student)) {
+                // Remove the student from each course's enrolled students list
+                if(student.getEnrolledCourses() != null) {
+                    for (Course course : student.getEnrolledCourses()) {
+                        course.removeStudent(student);
+                    }
+                }
+                // Clear the enrolled courses list in the student
+                student.setEnrolledCourses(new ArrayList<>());
+
+                // Remove the student from the repository
+                studentRepository.remove(student);
+                studentCounter--;
+                FileHandler.saveData();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // adds a teacher to the teacher repository
     public static void addToTeacherRepository(Teacher teacher){
         try{
