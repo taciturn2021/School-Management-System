@@ -4,6 +4,7 @@ import models.Course;
 import models.Teacher;
 import models.University;
 import utils.ExceptionUtility;
+import utils.FileHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,13 +13,13 @@ import java.util.List;
 
 public class AssignCourseToTeacher extends JFrame {
 
-    public AssignCourseToTeacher() {
-        createAssignCourseToTeacher();
+    public AssignCourseToTeacher(int WIDTH , int HEIGHT) {
+        createAssignCourseToTeacher(WIDTH , HEIGHT);
     }
 
-    public void createAssignCourseToTeacher() {
+    public void createAssignCourseToTeacher(int WIDTH , int HEIGHT) {
         setTitle("Assign Course To Teacher");
-        setSize(500, 500);
+        setSize(WIDTH, HEIGHT);
         setLayout(null);
         setVisible(true);
 
@@ -75,6 +76,7 @@ public class AssignCourseToTeacher extends JFrame {
                                 return;
                             }
                             teacher.assignCourse(course);
+                            FileHandler.SaveData();
                         }
 
                         JOptionPane.showMessageDialog(null, "Courses assigned successfully.");
@@ -95,7 +97,4 @@ public class AssignCourseToTeacher extends JFrame {
         add(assignButton);
     }
 
-    public static void main(String[] args) {
-        new AssignCourseToTeacher();
-    }
 }

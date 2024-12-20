@@ -14,9 +14,9 @@ import java.util.List;
 
 public class CourseViewTable extends JFrame {
 
-    public CourseViewTable() {
+    public CourseViewTable(int WIDTH , int HEIGHT) {
         setTitle("View Courses");
-        setSize(600, 400);
+        setSize(WIDTH, HEIGHT);
         setLayout(new BorderLayout());
 
         List<Course> courses = University.courseRepository.getAll();
@@ -55,7 +55,7 @@ public class CourseViewTable extends JFrame {
                 int row = table.getSelectedRow();
                 if (row != -1) {
                     Course selectedCourse = courses.get(row);
-                    new AssignGradeForm(selectedCourse);
+                    new AssignGradeForm(selectedCourse , 600 , 400);
                 } else {
                     JOptionPane.showMessageDialog(CourseViewTable.this, "Please select a course first.");
                 }

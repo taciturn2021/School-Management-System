@@ -1,10 +1,15 @@
 package models;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Teacher extends Person implements Serializable {
+import utils.FileHandler;
+
+public class Teacher extends Person implements Serializable , Reportable{
     private int teacherID;
     private String department;
     private String specialization;
@@ -44,6 +49,19 @@ public class Teacher extends Person implements Serializable {
         return super.toString() + "," + "Teacher ID: " + getTeacherID() + "," + "Department: " + getDepartment() + "," + "Specialization: " + getSpecialization() + "," + "Courses Taught: " + getCoursesTaught() ;
     }
 
+    public ArrayList<Course> generateReport(){
+        return coursesTaught ;
+    }
+
+    @Override
+    public void exportToFile() throws IOException {
+        try {
+            FileHandler.SaveData();
+
+        } catch (IOException e) {
+            throw new IOException("Error exporting Teacher to file: " + e.getMessage());
+        }
+    }
     // Getters and Setters
 
 

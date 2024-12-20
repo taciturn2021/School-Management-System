@@ -12,9 +12,9 @@ import java.util.List;
 
 public class CourseAddForm extends JFrame {
 
-    public CourseAddForm() {
+    public CourseAddForm(int WIDTH, int HEIGHT) {
         setTitle("Add/Remove Course"); // Set the title of the window
-        setSize(500, 400); // Set the size of the window
+        setSize(WIDTH, HEIGHT); // Set the size of the window
         setLayout(new GridLayout(7, 2)); // Set the layout manager
 
         JLabel actionLabel = new JLabel("Action:"); // Label for action

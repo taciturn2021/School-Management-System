@@ -4,9 +4,12 @@ import repositories.Repository;
 import utils.ExceptionUtility;
 import utils.FileHandler;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 // To handle system-wide operations
 
@@ -120,6 +123,10 @@ public class University {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public void exportToFile(String fileName) throws FileNotFoundException, IOException {
+        FileHandler.SaveData();
     }
 
     // Getters and Setters

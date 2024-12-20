@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 public class AssignGradeForm extends JFrame {
     private Course course;
 
-    public AssignGradeForm(Course course) {
+    public AssignGradeForm(Course course , int WIDTH , int HEIGHT) {
         this.course = course;
         setTitle("Assign Grade");
-        setSize(400, 300);
+        setSize(WIDTH, HEIGHT);
         setLayout(new GridLayout(3, 2));
 
         JLabel studentLabel = new JLabel("Student:");

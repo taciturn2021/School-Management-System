@@ -21,10 +21,6 @@ public class AdministrativeStaff extends Person implements Serializable {
     }
     // Functionality
 
-    public void generateReport( List<Person> people ){
-       super.generateReport(people);
-    }
-
     public String toString(){
         return getStaffID()+ " " + getRole() + " " + getDepartment() ;
     }
