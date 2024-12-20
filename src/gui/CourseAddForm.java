@@ -77,7 +77,6 @@ public class CourseAddForm extends JFrame {
                         University.addToCourseRepository(newCourse);
 
                         JOptionPane.showMessageDialog(CourseAddForm.this, "Course added successfully!");
-
                         dispose();
                     } catch (ExceptionUtility.InvalidInputException ex) {
                         JOptionPane.showMessageDialog(CourseAddForm.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -86,7 +85,7 @@ public class CourseAddForm extends JFrame {
                     Course course = null;
                     List<Course> courses = University.courseRepository.getAll();
                     for (Course c : courses) {
-                        if (c.getCourseID().equals(courseID)) {
+                        if (c.getCourseID().equalsIgnoreCase(courseID)) {
                             course = c;
                             break;
                         }
@@ -103,8 +102,7 @@ public class CourseAddForm extends JFrame {
 
                 try {
                     FileHandler.saveData();
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(CourseAddForm.this, "Error saving data to file!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }

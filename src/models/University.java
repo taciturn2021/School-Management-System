@@ -47,25 +47,31 @@ public class University {
         course.addStudent(student);
         student.enrollInCourse(course);
     }
-
     public static void removeStudentFromCourse(Student student, Course course){
         course.removeStudent(student);
         student.dropCourse(course);
     }
 
-    public static void addToCourseRepository(Course course){
-        try{
-            if (ExceptionUtility.nullCheck(course)) {
-                System.out.println(course.getClass());
-                courseRepository.add(course);
-                courseCounter++;
+    // Adds a course to the course repository ensuring that the course ID is unique
+    // University.java
+    public static void addToCourseRepository(Course course) throws ExceptionUtility.InvalidInputException {
+        if (ExceptionUtility.nullCheck(course)) {
+            for (Course existingCourse : courseRepository.getAll()) {
+                if (existingCourse.getCourseID().equalsIgnoreCase(course.getCourseID())) {
+                    throw new ExceptionUtility.DuplicateIDException("Course ID must be unique.");
+                }
+            }
+            courseRepository.add(course);
+            courseCounter++;
+            try {
                 FileHandler.saveData();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
     }
+
+    // Removes a course from the course repository and ensures that the course is removed from all students and teachers
     public static void removeFromCourseRepository(Course course) {
         try {
             if (ExceptionUtility.nullCheck(course)) {
@@ -93,6 +99,7 @@ public class University {
         }
     }
 
+    // Adds a student to the student repository
     public static void addToStudentRepository(Student student){
         try{
             if (ExceptionUtility.nullCheck(student)) {
@@ -106,6 +113,7 @@ public class University {
         }
     }
 
+    // adds a teacher to the teacher repository
     public static void addToTeacherRepository(Teacher teacher){
         try{
             if (ExceptionUtility.nullCheck(teacher)) {
@@ -119,6 +127,7 @@ public class University {
         }
     }
 
+    // adds an administrative staff member to the administrative staff repository
     public static void addToAdministrativeStaffRepository(AdministrativeStaff administrativeStaff){
         try{
             if (ExceptionUtility.nullCheck(administrativeStaff)) {

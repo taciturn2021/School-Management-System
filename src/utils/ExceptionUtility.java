@@ -1,5 +1,10 @@
 package utils;
 
+import models.University;
+import models.Student;
+import models.Teacher;
+import models.AdministrativeStaff;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,6 +22,12 @@ public class ExceptionUtility {
         }
     }
 
+    public static class DuplicateIDException extends InvalidInputException {
+        public DuplicateIDException(String message) {
+            super(message);
+        }
+    }
+
     public static int parseCredits(String text) throws InvalidInputException {
         try {
             return Integer.parseInt(text);
@@ -27,7 +38,13 @@ public class ExceptionUtility {
 
     public static int parseStudentID(String text) throws InvalidInputException {
         try {
-            return Integer.parseInt(text);
+            int id = Integer.parseInt(text);
+            for (Student student : University.studentRepository.getAll()) {
+                if (student.getStudentID() == id) {
+                    throw new DuplicateIDException("Student ID must be unique.");
+                }
+            }
+            return id;
         } catch (java.lang.NumberFormatException e) {
             throw new NumberFormatException("Student ID must be a valid integer.");
         }
@@ -37,13 +54,19 @@ public class ExceptionUtility {
         try {
             return new SimpleDateFormat("dd-MM-yyyy").parse(text);
         } catch (java.text.ParseException e) {
-            throw new NumberFormatException("Date of Birth must be a valid integer.");
+            throw new NumberFormatException("Date of Birth must be a valid date.");
         }
     }
 
     public static int parseTeacherID(String text) throws InvalidInputException {
         try {
-            return Integer.parseInt(text);
+            int id = Integer.parseInt(text);
+            for (Teacher teacher : University.teacherRepository.getAll()) {
+                if (teacher.getTeacherID() == id) {
+                    throw new DuplicateIDException("Teacher ID must be unique.");
+                }
+            }
+            return id;
         } catch (java.lang.NumberFormatException e) {
             throw new NumberFormatException("Teacher ID must be a valid integer.");
         }
@@ -51,19 +74,23 @@ public class ExceptionUtility {
 
     public static int parseStaffID(String text) throws InvalidInputException {
         try {
-            return Integer.parseInt(text);
+            int id = Integer.parseInt(text);
+            for (AdministrativeStaff staff : University.administrativeStaffRepository.getAll()) {
+                if (staff.getStaffID() == id) {
+                    throw new DuplicateIDException("Staff ID must be unique.");
+                }
+            }
+            return id;
         } catch (java.lang.NumberFormatException e) {
             throw new NumberFormatException("Staff ID must be a valid integer.");
         }
     }
 
     public static boolean nullCheck(Object object) throws InvalidInputException {
-        try{
+        try {
             return object != null;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new InvalidInputException("Object is null");
         }
     }
-
 }

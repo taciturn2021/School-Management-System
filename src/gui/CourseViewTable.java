@@ -113,8 +113,19 @@ public class CourseViewTable extends JFrame {
         JTable studentTable = new JTable(studentData, studentColumnNames);
         JScrollPane studentScrollPane = new JScrollPane(studentTable);
 
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                detailsFrame.dispose();
+            }
+        });
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.add(backButton);
+
         detailsFrame.add(courseInfoPanel, BorderLayout.NORTH);
         detailsFrame.add(studentScrollPane, BorderLayout.CENTER);
+        detailsFrame.add(bottomPanel, BorderLayout.SOUTH);
         detailsFrame.setVisible(true);
     }
 }
