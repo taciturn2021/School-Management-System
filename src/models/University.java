@@ -59,7 +59,7 @@ public class University {
                 System.out.println(course.getClass());
                 courseRepository.add(course);
                 courseCounter++;
-                FileHandler.SaveData();
+                FileHandler.saveData();
             }
         }
         catch (Exception e){
@@ -79,7 +79,7 @@ public class University {
                 // Remove the course from the repository
                 courseRepository.remove(course);
                 courseCounter--;
-                FileHandler.SaveData();
+                FileHandler.saveData();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -91,7 +91,7 @@ public class University {
             if (ExceptionUtility.nullCheck(student)) {
                 studentRepository.add(student);
                 studentCounter++;
-                FileHandler.SaveData();
+                FileHandler.saveData();
             }
         }
         catch (Exception e){
@@ -104,7 +104,7 @@ public class University {
             if (ExceptionUtility.nullCheck(teacher)) {
                 teacherRepository.add(teacher);
                 teacherCounter++;
-                FileHandler.SaveData();
+                FileHandler.saveData();
             }
         }
         catch (Exception e){
@@ -117,7 +117,7 @@ public class University {
             if (ExceptionUtility.nullCheck(administrativeStaff)) {
                 administrativeStaffRepository.add(administrativeStaff);
                 administrativeStaffCounter++;
-                FileHandler.SaveData();
+                FileHandler.saveData();
             }
         }
         catch (Exception e){
@@ -126,7 +126,7 @@ public class University {
     }
 
     public void exportToFile(String fileName) throws FileNotFoundException, IOException {
-        FileHandler.SaveData();
+        FileHandler.saveData();
     }
 
     // Getters and Setters

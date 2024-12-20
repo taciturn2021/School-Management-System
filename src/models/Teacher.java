@@ -56,7 +56,7 @@ public class Teacher extends Person implements Serializable , Reportable{
     @Override
     public void exportToFile() throws IOException {
         try {
-            FileHandler.SaveData();
+            FileHandler.saveData();
 
         } catch (IOException e) {
             throw new IOException("Error exporting Teacher to file: " + e.getMessage());

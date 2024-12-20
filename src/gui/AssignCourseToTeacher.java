@@ -13,31 +13,34 @@ import java.util.List;
 
 public class AssignCourseToTeacher extends JFrame {
 
-    public AssignCourseToTeacher(int WIDTH , int HEIGHT) {
-        createAssignCourseToTeacher(WIDTH , HEIGHT);
+    public AssignCourseToTeacher(int WIDTH, int HEIGHT) {
+        createAssignCourseToTeacher(WIDTH, HEIGHT);
     }
 
-    public void createAssignCourseToTeacher(int WIDTH , int HEIGHT) {
+    public void createAssignCourseToTeacher(int WIDTH, int HEIGHT) {
         setTitle("Assign Course To Teacher");
-        setSize(WIDTH, HEIGHT);
+        setSize(800, 600);
         setLayout(null);
         setVisible(true);
 
-        JTextField teacherIDField;
-        JList<Course> courseList;
-        DefaultListModel<Course> courseListModel;
-        JButton assignButton;
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(700, 10, 80, 30);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
         JLabel teacherIDLabel = new JLabel("Teacher ID");
-        teacherIDLabel.setBounds(50, 20, 100, 30);
+        teacherIDLabel.setBounds(50, 60, 500, 30);
 
-        teacherIDField = new JTextField();
-        teacherIDField.setBounds(150, 20, 200, 30);
+        JTextField teacherIDField = new JTextField();
+        teacherIDField.setBounds(150, 60, 500, 30);
 
         JLabel coursesLabel = new JLabel("Select Courses");
-        coursesLabel.setBounds(50, 60, 100, 30);
+        coursesLabel.setBounds(50, 100, 500, 30);
 
-        courseListModel = new DefaultListModel<>();
+        DefaultListModel<Course> courseListModel = new DefaultListModel<>();
         List<Course> courses = University.courseRepository.getAll();
         for (Course course : courses) {
             if (course != null) {
@@ -45,13 +48,13 @@ public class AssignCourseToTeacher extends JFrame {
             }
         }
 
-        courseList = new JList<>(courseListModel);
+        JList<Course> courseList = new JList<>(courseListModel);
         courseList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane courseScrollPane = new JScrollPane(courseList);
-        courseScrollPane.setBounds(150, 60, 200, 200);
+        courseScrollPane.setBounds(150, 100, 500, 200);
 
-        assignButton = new JButton("Assign");
-        assignButton.setBounds(200, 300, 100, 30);
+        JButton assignButton = new JButton("Assign");
+        assignButton.setBounds(350, 320, 100, 30);
 
         assignButton.addActionListener(new ActionListener() {
             @Override
@@ -71,12 +74,12 @@ public class AssignCourseToTeacher extends JFrame {
                         List<Course> selectedCourses = courseList.getSelectedValuesList();
 
                         for (Course course : selectedCourses) {
-                            if ( teacher.getCoursesTaught() != null && teacher.getCoursesTaught().contains(course) ) {
+                            if (teacher.getCoursesTaught() != null && teacher.getCoursesTaught().contains(course)) {
                                 JOptionPane.showMessageDialog(null, "Course already assigned to teacher.");
                                 return;
                             }
                             teacher.assignCourse(course);
-                            FileHandler.SaveData();
+                            FileHandler.saveData();
                         }
 
                         JOptionPane.showMessageDialog(null, "Courses assigned successfully.");
@@ -90,11 +93,11 @@ public class AssignCourseToTeacher extends JFrame {
             }
         });
 
+        add(backButton);
         add(teacherIDLabel);
         add(teacherIDField);
         add(coursesLabel);
         add(courseScrollPane);
         add(assignButton);
     }
-
 }

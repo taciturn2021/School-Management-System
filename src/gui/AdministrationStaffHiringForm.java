@@ -4,6 +4,7 @@ import models.Address;
 import models.AdministrativeStaff;
 import models.University;
 import utils.ExceptionUtility;
+import utils.FileHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -119,7 +120,16 @@ public class AdministrationStaffHiringForm extends JFrame {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
                 }
+
+                try {
+                    FileHandler.saveData();
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                }
+
             }
+
         });
 
         add(adminStaffId);

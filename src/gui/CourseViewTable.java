@@ -14,10 +14,23 @@ import java.util.List;
 
 public class CourseViewTable extends JFrame {
 
-    public CourseViewTable(int WIDTH , int HEIGHT) {
+    public CourseViewTable(int WIDTH, int HEIGHT) {
         setTitle("View Courses");
-        setSize(WIDTH, HEIGHT);
+        setSize(800, 600);
         setLayout(new BorderLayout());
+
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(700, 10, 80, 30);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        JPanel topPanel = new JPanel(null);
+        topPanel.setPreferredSize(new Dimension(800, 50));
+        topPanel.add(backButton);
+        add(topPanel, BorderLayout.NORTH);
 
         List<Course> courses = University.courseRepository.getAll();
         String[] columnNames = {"Course ID", "Title", "Credits", "Teacher"};
@@ -50,25 +63,30 @@ public class CourseViewTable extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         JButton assignGradeButton = new JButton("Assign Grade");
+        assignGradeButton.setBounds(350, 10, 80, 30);
         assignGradeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row != -1) {
                     Course selectedCourse = courses.get(row);
-                    new AssignGradeForm(selectedCourse , 600 , 400);
+                    new AssignGradeForm(selectedCourse, 800, 600);
                 } else {
                     JOptionPane.showMessageDialog(CourseViewTable.this, "Please select a course first.");
                 }
             }
         });
 
-        add(assignGradeButton, BorderLayout.SOUTH);
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(800, 50));
+        bottomPanel.add(assignGradeButton);
+        add(bottomPanel, BorderLayout.SOUTH);
+
         setVisible(true);
     }
 
     private void showCourseDetails(Course course) {
         JFrame detailsFrame = new JFrame("Course Details");
-        detailsFrame.setSize(600, 400);
+        detailsFrame.setSize(800, 600);
         detailsFrame.setLayout(new BorderLayout());
 
         JPanel courseInfoPanel = new JPanel();

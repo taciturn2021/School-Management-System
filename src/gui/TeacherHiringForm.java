@@ -1,103 +1,107 @@
 package gui;
 
 import models.*;
-import models.Course;
-import models.University;
 import utils.ExceptionUtility;
+import utils.FileHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class TeacherHiringForm extends JFrame {
 
-    public TeacherHiringForm(int WIDTH , int HEIGHT){
-        createTeacherHiringForm(WIDTH , HEIGHT);
+    public TeacherHiringForm(int WIDTH, int HEIGHT) {
+        createTeacherHiringForm(WIDTH, HEIGHT);
     }
 
     private void createTeacherHiringForm(int WIDTH, int HEIGHT) {
         setTitle("Teacher Hiring Form");
-        setSize(WIDTH, HEIGHT);
+        setSize(WIDTH, HEIGHT + 50);
         setLayout(null);
-        setVisible(true);
+
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(700, 10, 80, 30);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
         JLabel nameLabel = new JLabel("Enter Teacher's Specifications");
-        nameLabel.setBounds(50, 10, 700, 30);
+        nameLabel.setBounds(50, 60, 500, 30);
 
         JLabel teacherID = new JLabel("Teacher ID");
-        teacherID.setBounds(50, 50, 200, 30);
+        teacherID.setBounds(50, 100, 500, 30);
 
         JTextField teacherIDField = new JTextField();
-        teacherIDField.setBounds(250, 50, 500, 30);
+        teacherIDField.setBounds(250, 100, 500, 30);
 
         JLabel name = new JLabel("Name");
-        name.setBounds(50, 90, 200, 30);
+        name.setBounds(50, 140, 500, 30);
 
         JTextField nameField = new JTextField();
-        nameField.setBounds(250, 90, 500, 30);
+        nameField.setBounds(250, 140, 500, 30);
 
         JLabel email = new JLabel("Email");
-        email.setBounds(50, 130, 200, 30);
+        email.setBounds(50, 180, 500, 30);
 
         JTextField emailField = new JTextField();
-        emailField.setBounds(250, 130, 500, 30);
+        emailField.setBounds(250, 180, 500, 30);
 
         JLabel dateOfBirth = new JLabel("Date of Birth");
-        dateOfBirth.setBounds(50, 170, 200, 30);
+        dateOfBirth.setBounds(50, 220, 500, 30);
 
         JTextField dateOfBirthField = new JTextField();
-        dateOfBirthField.setBounds(250, 170, 500, 30);
+        dateOfBirthField.setBounds(250, 220, 500, 30);
 
         JLabel address = new JLabel("Address");
-        address.setBounds(50, 210, 200, 30);
+        address.setBounds(50, 260, 500, 30);
 
         JLabel streetAddress = new JLabel("Street Address");
-        streetAddress.setBounds(50, 250, 200, 30);
+        streetAddress.setBounds(50, 300, 500, 30);
 
         JTextField streetAddressField = new JTextField();
-        streetAddressField.setBounds(250, 250, 500, 30);
+        streetAddressField.setBounds(250, 300, 500, 30);
 
         JLabel city = new JLabel("City");
-        city.setBounds(50, 290, 200, 30);
+        city.setBounds(50, 340, 500, 30);
 
         JTextField cityField = new JTextField();
-        cityField.setBounds(250, 290, 500, 30);
+        cityField.setBounds(250, 340, 500, 30);
 
         JLabel state = new JLabel("State");
-        state.setBounds(50, 330, 200, 30);
+        state.setBounds(50, 380, 500, 30);
 
         JTextField stateField = new JTextField();
-        stateField.setBounds(250, 330, 500, 30);
+        stateField.setBounds(250, 380, 500, 30);
 
         JLabel zipCode = new JLabel("Zip Code");
-        zipCode.setBounds(50, 370, 200, 30);
+        zipCode.setBounds(50, 420, 500, 30);
 
         JTextField zipCodeField = new JTextField();
-        zipCodeField.setBounds(250, 370, 500, 30);
+        zipCodeField.setBounds(250, 420, 500, 30);
 
         JLabel country = new JLabel("Country");
-        country.setBounds(50, 410, 200, 30);
+        country.setBounds(50, 460, 500, 30);
 
         JTextField countryField = new JTextField();
-        countryField.setBounds(250, 410, 500, 30);
+        countryField.setBounds(250, 460, 500, 30);
 
         JLabel department = new JLabel("Department");
-        department.setBounds(50, 450, 200, 30);
+        department.setBounds(50, 500, 500, 30);
 
         JTextField departmentField = new JTextField();
-        departmentField.setBounds(250, 450, 500, 30);
+        departmentField.setBounds(250, 500, 500, 30);
 
         JLabel specialization = new JLabel("Specialization");
-        specialization.setBounds(50, 490, 200, 30);
+        specialization.setBounds(50, 540, 500, 30);
 
         JTextField specializationField = new JTextField();
-        specializationField.setBounds(250, 490, 500, 30);
+        specializationField.setBounds(250, 540, 500, 30);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(350, 530, 100, 30);
+        submitButton.setBounds(350, 580, 100, 30);
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -123,9 +127,18 @@ public class TeacherHiringForm extends JFrame {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
                 }
+
+                try {
+                    FileHandler.saveData();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                }
+
             }
         });
 
+
+        add(backButton);
         add(nameLabel);
         add(teacherID);
         add(teacherIDField);
@@ -151,5 +164,7 @@ public class TeacherHiringForm extends JFrame {
         add(specialization);
         add(specializationField);
         add(submitButton);
+
+        setVisible(true);
     }
 }

@@ -38,7 +38,7 @@ public class FileHandler implements Serializable{
     }
 
     // saves university data
-    public static void SaveData() throws IOException , FileNotFoundException {
+    public static void saveData() throws IOException , FileNotFoundException {
         try {
             String filename = "resources/data/uniData.dat" ;
 

@@ -19,7 +19,7 @@ public class ListTeacherCourses extends JFrame {
     private JPanel tablePanel;
 
     public ListTeacherCourses(int WIDTH, int HEIGHT) {
-        createListTeacherCourses(WIDTH , HEIGHT);
+        createListTeacherCourses(WIDTH, HEIGHT);
     }
 
     public void createListTeacherCourses(int WIDTH, int HEIGHT) {
@@ -29,19 +29,19 @@ public class ListTeacherCourses extends JFrame {
         setVisible(true);
 
         JLabel teacherID = new JLabel("Teacher ID");
-        teacherID.setBounds(50, 50, 100, 30);
+        teacherID.setBounds(50, 60, 500, 30);
 
         teacherIDField = new JTextField();
-        teacherIDField.setBounds(150, 50, 600, 30);
+        teacherIDField.setBounds(150, 60, 500, 30);
 
         searchButton = new JButton("Search");
-        searchButton.setBounds(150, 90, 100, 30);
+        searchButton.setBounds(350, 100, 100, 30);
 
         backButton = new JButton("Back");
         backButton.setBounds(WIDTH - 130, 10, 100, 30);
 
         tablePanel = new JPanel();
-        tablePanel.setBounds(50, 100, 700, 400);
+        tablePanel.setBounds(50, 140, 700, 400);
         tablePanel.setLayout(new BorderLayout());
 
         searchButton.addActionListener(new ActionListener() {
@@ -110,5 +110,4 @@ public class ListTeacherCourses extends JFrame {
         add(backButton);
         add(tablePanel);
     }
-
 }

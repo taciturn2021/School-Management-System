@@ -83,10 +83,13 @@ public class GUIWindow extends JFrame {
         JMenu studentMenu = new JMenu("Students");
         JMenuItem addStudent = new JMenuItem("Add Student");
         JMenuItem viewStudents = new JMenuItem("View Students");
+        JMenuItem addRemoveCourse = new JMenuItem("Add/Remove Course");
         JMenuItem searchStudent = new JMenuItem("Check Enrolled Courses");
+
         studentMenu.add(addStudent); // Add menu items to the menu
         studentMenu.add(viewStudents);
         studentMenu.add(searchStudent);
+        studentMenu.add(addRemoveCourse);
 
         // Add menus to the menu bar
         menuBar.add(studentMenu);
@@ -110,6 +113,12 @@ public class GUIWindow extends JFrame {
         searchStudent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showSearchStudent();
+            }
+        });
+
+        addRemoveCourse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                addRemoveStudentFromCourse();
             }
         });
 
@@ -212,8 +221,10 @@ public class GUIWindow extends JFrame {
         JMenu administrationMenu = new JMenu("Administrative Staff");
         JMenuItem hireAdministration = new JMenuItem("Hire Administration Staff");
         JMenuItem generateReport = new JMenuItem("Generate Report");
+        JMenuItem viewAdministrative = new JMenuItem("View Administrative Staff");
         administrationMenu.add(hireAdministration);
         administrationMenu.add(generateReport);
+        administrationMenu.add(viewAdministrative);
 
         menuBar.add(administrationMenu);
 
@@ -227,6 +238,12 @@ public class GUIWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Number of Students: " + University.studentCounter + "\nNumber of Teachers: " + University.teacherCounter + "\nNumber of Courses: " + University.courseCounter + "\nNumber of Administrative Staff: " + University.administrativeStaffCounter);
 
+            }
+        });
+
+        viewAdministrative.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showAdministrativeTable();
             }
         });
 
@@ -262,6 +279,8 @@ public class GUIWindow extends JFrame {
     private void showTeacherTable() { new ViewTeacherTable(WIDTH , HEIGHT); }
     private void showStudentTable() { new ViewStudentTable(WIDTH , HEIGHT); }
     private void generateTeacherReport() { new GenerateTeacherReport(WIDTH , HEIGHT); }
+    private void showAdministrativeTable() { new ViewAdministrativeTable(WIDTH , HEIGHT); }
+    private void addRemoveStudentFromCourse() { new AddRemoveCourseFromStudent(WIDTH , HEIGHT); }
 
 
 }

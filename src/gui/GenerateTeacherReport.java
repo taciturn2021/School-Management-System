@@ -25,13 +25,13 @@ public class GenerateTeacherReport extends JFrame {
         back.setBounds(WIDTH - 130, 10, 100, 30);
 
         JLabel teacherId = new JLabel("Teacher ID");
-        teacherId.setBounds(50, 60, 100, 30);
+        teacherId.setBounds(50, 60, 500, 30);
 
         JTextField teacherIdField = new JTextField();
-        teacherIdField.setBounds(150, 60, 600, 30);
+        teacherIdField.setBounds(150, 60, 500, 30);
 
         JButton generate = new JButton("Generate");
-        generate.setBounds(150, 100, 100, 30);
+        generate.setBounds(350, 100, 100, 30);
 
         generate.addActionListener(new ActionListener() {
             @Override
@@ -49,10 +49,10 @@ public class GenerateTeacherReport extends JFrame {
                 if ( teacher != null ) {
                     List<Course> courses = teacher.getCoursesTaught();
                     JList list = new JList(courses.toArray());
-                    list.setBounds(50, 140, 700, 200);
+                    list.setBounds(150, 140, 500, 200);
 
                     JScrollPane scrollPane = new JScrollPane(list);
-                    scrollPane.setBounds(35, 140, 700, 200);
+                    scrollPane.setBounds(150, 140, 500, 200);
 
                     String columnNames[] = {"Course ID", "Course Name", "Credits" , "Number Of Students Enrolled" , "Average Grade"};
                     Object[][] data = new Object[courses.size()][5];
@@ -71,9 +71,9 @@ public class GenerateTeacherReport extends JFrame {
                     }
 
                     JTable table = new JTable(data, columnNames);
-                    table.setBounds(50, 360, 300, 200);
+                    table.setBounds(150, 360, 500, 200);
                     JScrollPane scrollPaneTable = new JScrollPane(table);
-                    scrollPaneTable.setBounds(35, 360, 700, 200);
+                    scrollPaneTable.setBounds(150, 360, 500, 200);
 
                     add(scrollPaneTable);
                     add(scrollPane);
