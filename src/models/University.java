@@ -63,15 +63,22 @@ public class University {
             System.out.println(e.getMessage());
         }
     }
-    public static void removeFromCourseRepository(Course course){
-        try{
+    public static void removeFromCourseRepository(Course course) {
+        try {
             if (ExceptionUtility.nullCheck(course)) {
+                // Remove the course from each student's enrolled courses list
+                for (Student student : course.getEnrolledStudents()) {
+                    student.dropCourse(course);
+                }
+                // Clear the enrolled students list in the course
+                course.setEnrolledStudents(new ArrayList<>());
+
+                // Remove the course from the repository
                 courseRepository.remove(course);
                 courseCounter--;
                 FileHandler.SaveData();
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
