@@ -29,7 +29,6 @@ public class Teacher extends Person implements Serializable , Reportable{
     }
 
     // Functionality
-
     public void assignCourse(Course course){
         if ( course != null ) {
             coursesTaught.add( course ) ;

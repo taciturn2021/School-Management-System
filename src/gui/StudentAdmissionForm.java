@@ -5,9 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import java.util.List;
 
-import models.Course;
 import models.Student;
 import models.University;
 import models.Address;
@@ -93,22 +91,8 @@ public class StudentAdmissionForm extends JFrame {
         JTextField countryField = new JTextField();
         countryField.setBounds(150, 460, 500, 30);
 
-        JLabel coursesLabel = new JLabel("Select Courses");
-        coursesLabel.setBounds(50, 500, 500, 30);
-
-        DefaultListModel<Course> courseListModel = new DefaultListModel<>();
-        List<Course> courses = University.courseRepository.getAll();
-        for (Course course : courses) {
-            courseListModel.addElement(course);
-        }
-
-        JList<Course> courseList = new JList<>(courseListModel);
-        courseList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        JScrollPane courseScrollPane = new JScrollPane(courseList);
-        courseScrollPane.setBounds(150, 500, 500, 100);
-
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(330, 610, 100, 30);
+        submitButton.setBounds(330, 510, 100, 30);
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -122,16 +106,11 @@ public class StudentAdmissionForm extends JFrame {
                     Student newStudent = new Student(studentID, name, email, dateOfBirth, address);
                     University.addToStudentRepository(newStudent);
 
-                    for (Course course : courseList.getSelectedValuesList()) {
-                        University.addStudentToCourse(newStudent, course);
-                    }
-
                     JOptionPane.showMessageDialog(StudentAdmissionForm.this, "Student added successfully!");
 
                     try {
                         FileHandler.saveData();
-                    }
-                    catch (Exception ex) {
+                    } catch (Exception ex) {
                         JOptionPane.showMessageDialog(StudentAdmissionForm.this, "An error occurred: " + ex.getMessage());
                     }
 
@@ -140,12 +119,8 @@ public class StudentAdmissionForm extends JFrame {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(StudentAdmissionForm.this, "An error occurred: " + ex.getMessage());
                 }
-
-
             }
         });
-
-
 
         add(backButton);
         add(nameLabel);
@@ -168,15 +143,8 @@ public class StudentAdmissionForm extends JFrame {
         add(zipCodeField);
         add(country);
         add(countryField);
-        add(coursesLabel);
-        add(courseScrollPane);
         add(submitButton);
 
         setVisible(true);
     }
 }
-
-
-
-
-
