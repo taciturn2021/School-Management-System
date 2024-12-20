@@ -32,6 +32,7 @@ public class Teacher extends Person implements Serializable , Reportable{
     public void assignCourse(Course course){
         if ( course != null ) {
             coursesTaught.add( course ) ;
+            course.setAssignedTeacher(this);
             System.out.println("Teacher " + getName() + "assigned to teach " + course.getCourseName() + "." );
         }
     }

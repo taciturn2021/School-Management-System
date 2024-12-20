@@ -76,6 +76,13 @@ public class University {
                 // Clear the enrolled students list in the course
                 course.setEnrolledStudents(new ArrayList<>());
 
+                // Remove the course from each teacher's assigned courses list
+                for (Teacher teacher : teacherRepository.getAll()) {
+                    if (teacher.getCoursesTaught().contains(course)) {
+                        teacher.getCoursesTaught().remove(course);
+                    }
+                }
+
                 // Remove the course from the repository
                 courseRepository.remove(course);
                 courseCounter--;
