@@ -105,7 +105,7 @@ public class CourseViewTable extends JFrame {
         setVisible(true);
     }
 
-    private void showCourseDetails(Course course) {
+    public static void showCourseDetails(Course course) {
         JFrame detailsFrame = new JFrame("Course Details");
         detailsFrame.setSize(800, 600);
         detailsFrame.setLayout(new BorderLayout());

@@ -1,3 +1,4 @@
+
 package gui;
 
 import models.*;
@@ -20,13 +21,11 @@ public class TeacherHiringForm extends JFrame {
         setSize(WIDTH, HEIGHT + 50);
         setLayout(null);
 
-        JButton backButton = new JButton("Back");
-        backButton.setBounds(700, 10, 80, 30);
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        JLabel actionLabel = new JLabel("Action:");
+        actionLabel.setBounds(50, 20, 500, 30);
+        String[] actions = {"Add", "Remove"};
+        JComboBox<String> actionComboBox = new JComboBox<>(actions);
+        actionComboBox.setBounds(250, 20, 500, 30);
 
         JLabel nameLabel = new JLabel("Enter Teacher's Specifications");
         nameLabel.setBounds(50, 60, 500, 30);
@@ -101,44 +100,101 @@ public class TeacherHiringForm extends JFrame {
         specializationField.setBounds(250, 540, 500, 30);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(350, 580, 100, 30);
+        submitButton.setBounds(250, 580, 100, 30);
+
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(400, 580, 100, 30);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        actionComboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedAction = (String) actionComboBox.getSelectedItem();
+                boolean isAddAction = "Add".equals(selectedAction);
+                nameField.setEnabled(isAddAction);
+                emailField.setEnabled(isAddAction);
+                dateOfBirthField.setEnabled(isAddAction);
+                streetAddressField.setEnabled(isAddAction);
+                cityField.setEnabled(isAddAction);
+                stateField.setEnabled(isAddAction);
+                zipCodeField.setEnabled(isAddAction);
+                countryField.setEnabled(isAddAction);
+                departmentField.setEnabled(isAddAction);
+                specializationField.setEnabled(isAddAction);
+            }
+        });
 
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    int teacherID = ExceptionUtility.parseTeacherID(teacherIDField.getText(),true);
-                    String name = nameField.getText();
-                    String email = emailField.getText();
-                    Date dateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());
-                    String streetAddress = streetAddressField.getText();
-                    String city = cityField.getText();
-                    String state = stateField.getText();
-                    String country = countryField.getText();
-                    String department = departmentField.getText();
-                    String specialization = specializationField.getText();
-                    String zipCode = zipCodeField.getText();
+                String selectedAction = (String) actionComboBox.getSelectedItem();
+                String teacherIDText = teacherIDField.getText();
 
-                    Address address = new Address(streetAddress, city, state, zipCode, country);
-                    Teacher teacher = new Teacher(teacherID, name, email, dateOfBirth, address, department, specialization);
-                    University.addToTeacherRepository(teacher);
+                if ("Add".equals(selectedAction)) {
+                    try {
+                        int teacherID = ExceptionUtility.parseTeacherID(teacherIDText, true);
+                        String name = nameField.getText();
+                        String email = emailField.getText();
+                        Date dateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());
+                        String streetAddress = streetAddressField.getText();
+                        String city = cityField.getText();
+                        String state = stateField.getText();
+                        String country = countryField.getText();
+                        String department = departmentField.getText();
+                        String specialization = specializationField.getText();
+                        String zipCode = zipCodeField.getText();
 
-                    JOptionPane.showMessageDialog(null, "Teacher added successfully.");
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                        Address address = new Address(streetAddress, city, state, zipCode, country);
+                        Teacher teacher = new Teacher(teacherID, name, email, dateOfBirth, address, department, specialization);
+                        University.addToTeacherRepository(teacher);
+
+                        JOptionPane.showMessageDialog(null, "Teacher added successfully.");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    }
+
+                    try {
+                        FileHandler.saveData();
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    }
+
+                } else if ("Remove".equals(selectedAction)) {
+                    try {
+                        int teacherID = ExceptionUtility.parseTeacherID(teacherIDText);
+                        Teacher teacher = null;
+                        for (Teacher t : University.teacherRepository.getAll()) {
+                            if (t.getTeacherID() == teacherID) {
+                                teacher = t;
+                                break;
+                            }
+                        }
+
+                        if (teacher != null) {
+                            University.removeFromTeacherRepository(teacher);
+                            JOptionPane.showMessageDialog(null, "Teacher removed successfully.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Teacher not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        try {
+                            FileHandler.saveData();
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                        }
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    }
                 }
-
-                try {
-                    FileHandler.saveData();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-                }
-
             }
         });
 
-
-        add(backButton);
+        add(actionLabel);
+        add(actionComboBox);
         add(nameLabel);
         add(teacherID);
         add(teacherIDField);
@@ -164,6 +220,7 @@ public class TeacherHiringForm extends JFrame {
         add(specialization);
         add(specializationField);
         add(submitButton);
+        add(backButton);
 
         setVisible(true);
     }

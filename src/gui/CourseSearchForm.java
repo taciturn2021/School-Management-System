@@ -5,9 +5,12 @@ import models.Course;
 import models.University;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseSearchForm extends JFrame {
@@ -66,21 +69,39 @@ public class CourseSearchForm extends JFrame {
         resultsFrame.setLayout(new BorderLayout());
 
         String[] columnNames = {"Course ID", "Title", "Credits"};
-        Object[][] data = new Object[courses.size()][3];
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course course : courses) {
+            if (course.getCourseID().contains(courseID)) {
+                filteredCourses.add(course);
+            }
+        }
 
-        for (int i = 0; i < courses.size(); i++) {
-            if (!courses.get(i).getCourseID().contains(courseID))
-                continue;
-            Course course = courses.get(i);
+        Object[][] data = new Object[filteredCourses.size()][3];
+        for (int i = 0; i < filteredCourses.size(); i++) {
+            Course course = filteredCourses.get(i);
             data[i][0] = course.getCourseID();
             data[i][1] = course.getCourseName();
             data[i][2] = course.getCourseCredits();
         }
 
-        JTable table = new JTable(data, columnNames);
+        JTable table = new JTable(data, columnNames) {
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable cell editing
+            }
+        };
         JScrollPane scrollPane = new JScrollPane(table);
         resultsFrame.add(scrollPane, BorderLayout.CENTER);
+        table.addMouseListener(new MouseInputAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = table.getSelectedRow();
+                    Course selectedCourse = filteredCourses.get(row);
+                    CourseViewTable.showCourseDetails(selectedCourse);
+                }
+            }
+        });
 
         resultsFrame.setVisible(true);
     }
+
 }

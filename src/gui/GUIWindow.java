@@ -83,11 +83,13 @@ public class GUIWindow extends JFrame {
         JMenu studentMenu = new JMenu("Students");
         JMenuItem addStudent = new JMenuItem("Add/Remove Student");
         JMenuItem viewStudents = new JMenuItem("View Students");
-        JMenuItem searchStudent = new JMenuItem("Check Enrolled Courses");
+        JMenuItem searchStudents = new JMenuItem("Search By Name");
+        JMenuItem checkEnrolledCourses = new JMenuItem("Check Enrolled Courses");
 
         studentMenu.add(addStudent); // Add menu items to the menu
         studentMenu.add(viewStudents);
-        studentMenu.add(searchStudent);
+        studentMenu.add(searchStudents);
+        studentMenu.add(checkEnrolledCourses);
 
         // Add menus to the menu bar
         menuBar.add(studentMenu);
@@ -108,9 +110,15 @@ public class GUIWindow extends JFrame {
             }
         });
 
-        searchStudent.addActionListener(new ActionListener() {
+        searchStudents.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showSearchStudent();
+            }
+        });
+
+        checkEnrolledCourses.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showDisplayEnrolled();
             }
         });
 
@@ -164,15 +172,15 @@ public class GUIWindow extends JFrame {
     private void createTeacherMenu(JMenuBar menuBar){
 
         JMenu teacherMenu = new JMenu("Teachers");
-        JMenuItem hireTeacher = new JMenuItem("Hire Teacher");
+        JMenuItem hireTeacher = new JMenuItem("Add/Remove Teacher");
         JMenuItem listTeacherCourses = new JMenuItem("List Teacher Courses");
         JMenuItem assignCourse = new JMenuItem("Assign Course to Teacher");
         JMenuItem viewTeachers = new JMenuItem("View Teachers");
         JMenuItem generateReport = new JMenuItem("Generate Report");
         teacherMenu.add(hireTeacher);
-        teacherMenu.add(listTeacherCourses);
-        teacherMenu.add(assignCourse);
         teacherMenu.add(viewTeachers);
+        teacherMenu.add(assignCourse);
+        teacherMenu.add(listTeacherCourses);
         teacherMenu.add(generateReport);
 
         menuBar.add(teacherMenu);
@@ -216,8 +224,8 @@ public class GUIWindow extends JFrame {
         JMenuItem generateReport = new JMenuItem("Generate Report");
         JMenuItem viewAdministrative = new JMenuItem("View Administrative Staff");
         administrationMenu.add(hireAdministration);
-        administrationMenu.add(generateReport);
         administrationMenu.add(viewAdministrative);
+        administrationMenu.add(generateReport);
 
         menuBar.add(administrationMenu);
 
@@ -261,9 +269,10 @@ public class GUIWindow extends JFrame {
         new StudentAdmissionForm(WIDTH , HEIGHT);
     }
 
-    private void showSearchStudent() {
+    private void showDisplayEnrolled() {
         new DisplayEnrolledCourses(WIDTH , HEIGHT);
     }
+
   
     private void showTeacherHiringForm() { new TeacherHiringForm(WIDTH , HEIGHT); }
     private void ListTeacherCourses() { new ListTeacherCourses(WIDTH , HEIGHT); }
@@ -273,6 +282,6 @@ public class GUIWindow extends JFrame {
     private void showStudentTable() { new ViewStudentTable(WIDTH , HEIGHT); }
     private void generateTeacherReport() { new GenerateTeacherReport(WIDTH , HEIGHT); }
     private void showAdministrativeTable() { new ViewAdministrativeTable(WIDTH , HEIGHT); }
-
+    private void showSearchStudent() { new SearchStudentByName(WIDTH , HEIGHT); }
 
 }

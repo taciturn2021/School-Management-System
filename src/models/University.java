@@ -113,7 +113,6 @@ public class University {
     }
 
     // Removes a student from the student repository
-    // University.java
     public static void removeFromStudentRepository(Student student) {
         try {
             if (ExceptionUtility.nullCheck(student)) {
@@ -146,6 +145,26 @@ public class University {
             }
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    // Removes a teacher from the teacher repository
+    public static void removeFromTeacherRepository(Teacher teacher) {
+        try {
+            if (ExceptionUtility.nullCheck(teacher)) {
+                // Remove the teacher from each course's assigned teacher list
+                for (Course course : courseRepository.getAll()) {
+                    if (course.getAssignedTeacher() != null && course.getAssignedTeacher().equals(teacher)) {
+                        course.setAssignedTeacher(null);
+                    }
+                }
+
+                // Remove the teacher from the repository
+                teacherRepository.remove(teacher);
+                teacherCounter--;
+                FileHandler.saveData();
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
