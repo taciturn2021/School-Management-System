@@ -99,7 +99,7 @@ public class StudentAdmissionForm extends JFrame {
                 try {
                     String name = nameField.getText();
                     String email = emailField.getText();
-                    int studentID = ExceptionUtility.parseStudentID(studentIDField.getText());
+                    int studentID = ExceptionUtility.parseStudentID(studentIDField.getText(),true);
                     Date dateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());
                     Address address = new Address(addressField.getText(), cityField.getText(), stateField.getText(), zipCodeField.getText(), countryField.getText());
 

@@ -107,7 +107,7 @@ public class TeacherHiringForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int teacherID = ExceptionUtility.parseTeacherID(teacherIDField.getText());
+                    int teacherID = ExceptionUtility.parseTeacherID(teacherIDField.getText(),true);
                     String name = nameField.getText();
                     String email = emailField.getText();
                     Date dateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());

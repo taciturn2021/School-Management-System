@@ -99,7 +99,7 @@ public class AdministrationStaffHiringForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int staffId = ExceptionUtility.parseStaffID(adminStaffIdField.getText());
+                    int staffId = ExceptionUtility.parseStaffID(adminStaffIdField.getText(),true);
                     String staffName = nameField.getText();
                     String staffEmail = emailField.getText();
                     Date staffDateOfBirth = ExceptionUtility.parseDateOfBirth(dateOfBirthField.getText());

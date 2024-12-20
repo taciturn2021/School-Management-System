@@ -39,6 +39,15 @@ public class ExceptionUtility {
     public static int parseStudentID(String text) throws InvalidInputException {
         try {
             int id = Integer.parseInt(text);
+            return id;
+        } catch (java.lang.NumberFormatException e) {
+            throw new NumberFormatException("Student ID must be a valid integer.");
+        }
+    }
+    // Overloaded parseStudentID method for the case where the ID must be unique
+    public static int parseStudentID(String text,boolean unique) throws InvalidInputException {
+        try {
+            int id = Integer.parseInt(text);
             for (Student student : University.studentRepository.getAll()) {
                 if (student.getStudentID() == id) {
                     throw new DuplicateIDException("Student ID must be unique.");
@@ -61,6 +70,16 @@ public class ExceptionUtility {
     public static int parseTeacherID(String text) throws InvalidInputException {
         try {
             int id = Integer.parseInt(text);
+            return id;
+        } catch (java.lang.NumberFormatException e) {
+            throw new NumberFormatException("Teacher ID must be a valid integer.");
+        }
+    }
+
+    // Overloaded parseTeacherID method for the case where the ID must be unique
+    public static int parseTeacherID(String text, boolean unique) throws InvalidInputException {
+        try {
+            int id = Integer.parseInt(text);
             for (Teacher teacher : University.teacherRepository.getAll()) {
                 if (teacher.getTeacherID() == id) {
                     throw new DuplicateIDException("Teacher ID must be unique.");
@@ -71,8 +90,18 @@ public class ExceptionUtility {
             throw new NumberFormatException("Teacher ID must be a valid integer.");
         }
     }
-
+    // Normal parseTeacherID method
     public static int parseStaffID(String text) throws InvalidInputException {
+        try {
+            int id = Integer.parseInt(text);
+            return id;
+        } catch (java.lang.NumberFormatException e) {
+            throw new NumberFormatException("Staff ID must be a valid integer.");
+        }
+    }
+
+    // Overloaded parseStaffID method for the case where the ID must be unique
+    public static int parseStaffID(String text, boolean unique) throws InvalidInputException {
         try {
             int id = Integer.parseInt(text);
             for (AdministrativeStaff staff : University.administrativeStaffRepository.getAll()) {
