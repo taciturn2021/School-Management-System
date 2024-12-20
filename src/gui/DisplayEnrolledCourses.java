@@ -13,9 +13,9 @@ import java.util.List;
 
 public class DisplayEnrolledCourses extends JFrame {
 
-    public DisplayEnrolledCourses() {
+    public DisplayEnrolledCourses(int WIDTH , int HEIGHT) {
         setTitle("Search Student by ID"); // Set the title of the window
-        setSize(400, 300); // Set the size of the window
+        setSize(WIDTH, HEIGHT); // Set the size of the window
         setLayout(new GridLayout(3, 2)); // Set the layout manager
 
         JLabel idLabel = new JLabel("Student ID: "); // Label for student ID

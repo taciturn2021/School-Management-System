@@ -6,13 +6,13 @@ import java.util.List;
 import models.* ;
 
 public class ViewTeacherTable extends JFrame {
-    public ViewTeacherTable() {
-        createViewTeacherTable();
+    public ViewTeacherTable(int WIDTH, int HEIGHT) {
+        createViewTeacherTable(WIDTH , HEIGHT);
     }
 
-    private void createViewTeacherTable() {
+    private void createViewTeacherTable(int WIDTH , int HEIGHT) {
         setTitle("View Teacher");
-        setSize(600, 400);
+        setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 

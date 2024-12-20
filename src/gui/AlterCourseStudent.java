@@ -13,9 +13,9 @@ import java.util.List;
 
 public class AlterCourseStudent extends JFrame {
 
-    public AlterCourseStudent() {
+    public AlterCourseStudent(int WIDTH , int HEIGHT) {
         setTitle("Alter Course Enrollment");
-        setSize(400, 300);
+        setSize(WIDTH, HEIGHT);
         setLayout(new GridLayout(4, 2));
 
         JLabel studentIDLabel = new JLabel("Student ID:");

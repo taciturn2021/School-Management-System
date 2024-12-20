@@ -18,30 +18,30 @@ public class ListTeacherCourses extends JFrame {
     private JButton backButton;
     private JPanel tablePanel;
 
-    public ListTeacherCourses() {
-        createListTeacherCourses();
+    public ListTeacherCourses(int WIDTH, int HEIGHT) {
+        createListTeacherCourses(WIDTH , HEIGHT);
     }
 
-    public void createListTeacherCourses() {
+    public void createListTeacherCourses(int WIDTH, int HEIGHT) {
         setTitle("List Teacher Courses");
-        setSize(800, 600);
+        setSize(WIDTH, HEIGHT);
         setLayout(null);
         setVisible(true);
 
         JLabel teacherID = new JLabel("Teacher ID");
-        teacherID.setBounds(50, 20, 100, 30);
+        teacherID.setBounds(50, 50, 100, 30);
 
         teacherIDField = new JTextField();
-        teacherIDField.setBounds(150, 20, 200, 30);
+        teacherIDField.setBounds(150, 50, 600, 30);
 
         searchButton = new JButton("Search");
-        searchButton.setBounds(100, 60, 100, 30);
+        searchButton.setBounds(150, 90, 100, 30);
 
         backButton = new JButton("Back");
-        backButton.setBounds(200, 60, 100, 30);
+        backButton.setBounds(WIDTH - 130, 10, 100, 30);
 
         tablePanel = new JPanel();
-        tablePanel.setBounds(50, 100, 400, 400);
+        tablePanel.setBounds(50, 100, 700, 400);
         tablePanel.setLayout(new BorderLayout());
 
         searchButton.addActionListener(new ActionListener() {
@@ -50,7 +50,6 @@ public class ListTeacherCourses extends JFrame {
                 try {
                     if (e.getSource() == backButton) {
                         dispose();
-
                     } else if (e.getSource() == searchButton) {
                         List<Teacher> teachers = University.teacherRepository.getAll();
                         int teacherID = ExceptionUtility.parseTeacherID(teacherIDField.getText());
@@ -68,7 +67,7 @@ public class ListTeacherCourses extends JFrame {
 
                         if (teacher == null) {
                             JOptionPane.showMessageDialog(null, "Teacher Not Found");
-                            return ;
+                            return;
                         }
 
                         if (courses != null) {
@@ -85,14 +84,12 @@ public class ListTeacherCourses extends JFrame {
                             tablePanel.add(scrollPane, BorderLayout.CENTER);
                             tablePanel.revalidate();
                             tablePanel.repaint();
-
                         } else {
                             JOptionPane.showMessageDialog(null, "No Courses Assigned");
-                            return ;
+                            return;
                         }
 
                         JOptionPane.showMessageDialog(null, "Teacher Assigned Courses");
-
                     }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());

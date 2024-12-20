@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Course implements Serializable {
+    private static final long serialVersionUID = 7775071123842157282L;
+
     private String courseID;
     private String courseName;
     private int courseCredits;
@@ -68,13 +70,13 @@ public class Course implements Serializable {
         return null;
     }
 
-    public void calculateAverageGrade() {
+    public double calculateAverageGrade() {
         double totalGrades = 0;
         for (Double grade : studentGrades) {
             totalGrades += grade;
         }
         double averageGrade = totalGrades / studentGrades.size();
-        System.out.println("Average Grade: " + averageGrade);
+        return averageGrade;
     }
 
     // Getters and Setters

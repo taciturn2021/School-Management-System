@@ -16,13 +16,13 @@ import utils.ExceptionUtility;
 
 public class StudentAdmissionForm extends JFrame {
 
-    public StudentAdmissionForm() {
-        createStudentAdmissionForm();
+    public StudentAdmissionForm(int WIDTH , int HEIGHT) {
+        createStudentAdmissionForm(WIDTH , HEIGHT);
     }
 
-    void createStudentAdmissionForm() {
+    void createStudentAdmissionForm(int WIDTH , int HEIGHT) {
         setTitle("Student Admission Form");
-        setSize(500, 700);
+        setSize(WIDTH, HEIGHT);
         setLayout(null);
 
         JLabel nameLabel = new JLabel("Enter your Specifications");

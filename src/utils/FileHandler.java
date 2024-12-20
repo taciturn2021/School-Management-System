@@ -100,6 +100,7 @@ public class FileHandler implements Serializable{
             University.studentCounter = Integer.parseInt(bufferedReader.readLine());
             University.teacherCounter = Integer.parseInt(bufferedReader.readLine());
             University.administrativeStaffCounter = Integer.parseInt(bufferedReader.readLine());
+
         } catch (FileNotFoundException ex) {
             FileNotFoundException exc = new FileNotFoundException("University data File not found!");
             System.out.println(exc.getMessage());
