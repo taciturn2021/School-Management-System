@@ -22,7 +22,7 @@ public class Address implements Serializable {
     }
 
     public String toString() {
-        return "Street Address: " + getStreetAddress() + "," + "Country: " + getCountry() + "," + "City: " + getCity() + "," + "State: " + getState() + "," + "Zip Code: " + getZipCode()  ;
+        return getStreetAddress() +", "+ getCity() + ",";
     }
 
     // Getters and Setters

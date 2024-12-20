@@ -53,7 +53,6 @@ public class University {
     }
 
     // Adds a course to the course repository ensuring that the course ID is unique
-    // University.java
     public static void addToCourseRepository(Course course) throws ExceptionUtility.InvalidInputException {
         if (ExceptionUtility.nullCheck(course)) {
             for (Course existingCourse : courseRepository.getAll()) {

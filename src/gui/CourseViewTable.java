@@ -76,9 +76,30 @@ public class CourseViewTable extends JFrame {
             }
         });
 
+        JButton averageGradeButton = new JButton("Average Grade");
+        averageGradeButton.setBounds(450, 10, 80, 30);
+        averageGradeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    Course selectedCourse = courses.get(row);
+                    double totalGrades = 0;
+                    List<Student> students = selectedCourse.getEnrolledStudents();
+                    for (Student student : students) {
+                        totalGrades += selectedCourse.getGrade(student);
+                    }
+                    double averageGrade = students.isEmpty() ? 0 : totalGrades / students.size();
+                    JOptionPane.showMessageDialog(CourseViewTable.this, "Average Grade: " + averageGrade);
+                } else {
+                    JOptionPane.showMessageDialog(CourseViewTable.this, "Please select a course first.");
+                }
+            }
+        });
+
         JPanel bottomPanel = new JPanel();
         bottomPanel.setPreferredSize(new Dimension(800, 50));
         bottomPanel.add(assignGradeButton);
+        bottomPanel.add(averageGradeButton);
         add(bottomPanel, BorderLayout.SOUTH);
 
         setVisible(true);

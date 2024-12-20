@@ -81,7 +81,7 @@ public class GUIWindow extends JFrame {
     private void createStudentMenu(JMenuBar menuBar) {
         // Create the Students menu
         JMenu studentMenu = new JMenu("Students");
-        JMenuItem addStudent = new JMenuItem("Add Student");
+        JMenuItem addStudent = new JMenuItem("Add/Remove Student");
         JMenuItem viewStudents = new JMenuItem("View Students");
         JMenuItem searchStudent = new JMenuItem("Check Enrolled Courses");
 
