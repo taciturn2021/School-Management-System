@@ -1,14 +1,13 @@
 package gui;
 
-import models.Teacher;
-import models.University;
-import utils.ExceptionUtility;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import models.Course;
+import models.Teacher;
+import models.University;
+import utils.ExceptionUtility;
 
 public class GenerateTeacherReport extends JFrame {
 
@@ -78,7 +77,10 @@ public class GenerateTeacherReport extends JFrame {
                 if (teacher != null) {
                     List<Course> courses = teacher.getCoursesTaught();
                     if (courses.size() > 0) {
-                        String[] courseNames = courses.stream().map(Course::getCourseName).toArray(String[]::new);
+                        String[] courseNames = new String[courses.size()];
+                        for (int i = 0; i < courses.size(); i++) {
+                            courseNames[i] = courses.get(i).getCourseName();
+                        }
                         JList<String> list = new JList<>(courseNames);
                         list.setBounds(150, 140, 500, 200);
 
@@ -128,6 +130,5 @@ public class GenerateTeacherReport extends JFrame {
         add(teacherIdField);
         add(generate);
         setVisible(true);
-
     }
 }

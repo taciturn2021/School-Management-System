@@ -1,0 +1,16 @@
+Teacher: Abdul Muizz
+Department: Computer Science 
+Specialization: Programming
+Courses Taught:
+Course ID: CSC270
+Course Name: Database Systems
+Course Credits: 4
+Number of Students Enrolled: 2
+Average Grade: 95.0
+
+Course ID: MTH310
+Course Name: Calculus
+Course Credits: 3
+Number of Students Enrolled: 1
+Average Grade: 0.0
+

@@ -69,7 +69,7 @@ public class FileHandler implements Serializable{
                 Course tempCourse = course ;
                 objectoutputStream.writeObject(tempCourse);
             }
-            saveAdminStaffReport();
+            saveCounts(University.courseCounter, University.studentCounter, University.teacherCounter, University.administrativeStaffCounter);
 
         }
         catch (FileNotFoundException ex){
@@ -86,13 +86,27 @@ public class FileHandler implements Serializable{
 
     private static void loadCounts() throws IOException {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("resources/reports/System Reports/SystemReport_20241221_160005.txt"));
-            bufferedReader.readLine(); // Skip the "Current System Stats:" line
-            University.studentCounter = Integer.parseInt(bufferedReader.readLine().split(": ")[1]);
-            University.teacherCounter = Integer.parseInt(bufferedReader.readLine().split(": ")[1]);
-            University.courseCounter = Integer.parseInt(bufferedReader.readLine().split(": ")[1]);
-            University.administrativeStaffCounter = Integer.parseInt(bufferedReader.readLine().split(": ")[1]);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("resources/data/counts.txt"));
+            University.courseCounter = Integer.parseInt(bufferedReader.readLine());
+            University.studentCounter = Integer.parseInt(bufferedReader.readLine());
+            University.teacherCounter = Integer.parseInt(bufferedReader.readLine());
+            University.administrativeStaffCounter = Integer.parseInt(bufferedReader.readLine());
+        } catch (FileNotFoundException ex) {
+            FileNotFoundException exc = new FileNotFoundException("University data File not found!");
+            System.out.println(exc.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
+    private static void saveCounts(int courseCounter, int studentCounter, int teacherCounter, int administrativeStaffCounter) throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter("resources/data/counts.txt");
+            fileWriter.write(courseCounter + "\n");
+            fileWriter.write(studentCounter + "\n");
+            fileWriter.write(teacherCounter + "\n");
+            fileWriter.write(administrativeStaffCounter + "\n");
+            fileWriter.close();
         } catch (FileNotFoundException ex) {
             FileNotFoundException exc = new FileNotFoundException("University data File not found!");
             System.out.println(exc.getMessage());

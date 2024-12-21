@@ -1,0 +1,5 @@
+Current System Stats:
+Students: 2
+Teachers: 1
+Courses: 3
+Administrative Staff: 0
