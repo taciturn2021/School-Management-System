@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Course implements Serializable {
-    private static final long serialVersionUID = 7775071123842157282L;
+    private static final long serialVersionUID = 7775071123842157282L; // Generated serial version ID for serialization to ensure that the sender and receiver of a serialized object have loaded classes for that object that are compatible with respect to serialization
 
     private String courseID;
     private String courseName;

@@ -8,8 +8,6 @@ src/
 
 |    |-- models/              # Classes for core entities (Student, Teacher, Course, etc.)
 
-|    |-- services/            # Business logic and operations (e.g., enrollment, reports)
-
 |    |-- repositories/        # Classes for data management (generics)
 
 |    |-- gui/                 # GUI-related classes and files

@@ -11,30 +11,38 @@ import utils.ExceptionUtility;
 
 public class GenerateTeacherReport extends JFrame {
 
-    GenerateTeacherReport(int WIDTH , int HEIGHT){
-        generateReport(WIDTH , HEIGHT);
+    // Constructor to initialize the GenerateTeacherReport frame
+    GenerateTeacherReport(int WIDTH, int HEIGHT) {
+        generateReport(WIDTH, HEIGHT);
     }
 
-    public void generateReport(int WIDTH , int HEIGHT) {
+    // Method to generate the report for a teacher
+    public void generateReport(int WIDTH, int HEIGHT) {
         setSize(WIDTH, HEIGHT);
         setTitle("Generate Teacher Report");
         setLayout(null);
 
+        // Back button to close the frame
         JButton back = new JButton("Back");
         back.setBounds(WIDTH - 130, 10, 100, 30);
 
+        // Label for entering teacher ID
         JLabel teacherId = new JLabel("Teacher ID");
         teacherId.setBounds(50, 60, 500, 30);
 
+        // Text field for entering teacher ID
         JTextField teacherIdField = new JTextField();
         teacherIdField.setBounds(150, 60, 500, 30);
 
+        // Generate button to trigger the report generation
         JButton generate = new JButton("Generate");
         generate.setBounds(350, 100, 100, 30);
 
+        // Export button to export the report to a file
         JButton export = new JButton("Export");
         export.setBounds(WIDTH - 130, 500, 100, 30);
 
+        // Action listener for the export button
         export.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,6 +69,7 @@ public class GenerateTeacherReport extends JFrame {
             }
         });
 
+        // Action listener for the generate button
         generate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,6 +126,7 @@ public class GenerateTeacherReport extends JFrame {
             }
         });
 
+        // Action listener for the back button
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,6 +134,7 @@ public class GenerateTeacherReport extends JFrame {
             }
         });
 
+        // Add components to the frame
         add(back);
         add(export);
         add(teacherId);

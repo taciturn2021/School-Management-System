@@ -10,15 +10,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.IllegalFormatWidthException;
 
 public class GUIWindow extends JFrame {
-    public static final int WIDTH = 800 ;
-    public static final int HEIGHT = 600 ;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 600;
 
+    // Constructor to initialize the GUIWindow frame
     public GUIWindow() {
         setTitle("School Management System");
-        setSize(WIDTH, 600);
+        setSize(WIDTH, HEIGHT);
 
         // Set the background color of the content pane
         getContentPane().setBackground(Color.GRAY);
@@ -26,15 +26,16 @@ public class GUIWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         try {
+            // Load data from file
             FileHandler.loadData();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error loading data: " + e.getMessage());
         }
         loadComponents(); // Load components
         setVisible(true);
     }
 
+    // Method to load components into the frame
     private void loadComponents() {
         // Create the top bar menu
         addMenuItems();
@@ -75,17 +76,18 @@ public class GUIWindow extends JFrame {
         add(panel, BorderLayout.CENTER);
     }
 
+    // Method to create and add menu items to the menu bar
     private void addMenuItems() {
         // Create the menu bar
         JMenuBar menuBar = new JMenuBar();
         createCourseMenu(menuBar); // Create the Courses menu
-        createStudentMenu(menuBar);// Create the Students menu
-        createTeacherMenu(menuBar);// Create the Teacher menu
-        createAdministrationMenu(menuBar);// Create the Administration menu
+        createStudentMenu(menuBar); // Create the Students menu
+        createTeacherMenu(menuBar); // Create the Teacher menu
+        createAdministrationMenu(menuBar); // Create the Administration menu
     }
 
+    // Method to create the Students menu
     private void createStudentMenu(JMenuBar menuBar) {
-        // Create the Students menu
         JMenu studentMenu = new JMenu("Students");
         JMenuItem addStudent = new JMenuItem("Add/Remove Student");
         JMenuItem viewStudents = new JMenuItem("View Students");
@@ -127,12 +129,10 @@ public class GUIWindow extends JFrame {
                 showDisplayEnrolled();
             }
         });
-
-
     }
 
+    // Method to create the Courses menu
     private void createCourseMenu(JMenuBar menuBar) {
-        // Create the Courses menu
         JMenu courseMenu = new JMenu("Courses");
         JMenuItem addCourse = new JMenuItem("Add/Remove Course");
         JMenuItem viewCourses = new JMenuItem("View Courses");
@@ -175,8 +175,8 @@ public class GUIWindow extends JFrame {
         });
     }
 
-    private void createTeacherMenu(JMenuBar menuBar){
-
+    // Method to create the Teachers menu
+    private void createTeacherMenu(JMenuBar menuBar) {
         JMenu teacherMenu = new JMenu("Teachers");
         JMenuItem hireTeacher = new JMenuItem("Add/Remove Teacher");
         JMenuItem listTeacherCourses = new JMenuItem("List Teacher Courses");
@@ -221,10 +221,9 @@ public class GUIWindow extends JFrame {
                 generateTeacherReport();
             }
         });
-
-
     }
 
+    // Method to create the Administration menu
     private void createAdministrationMenu(JMenuBar menuBar) {
         JMenu administrationMenu = new JMenu("Administrative Staff");
         JMenuItem hireAdministration = new JMenuItem("Hire Administration Staff");
@@ -255,6 +254,7 @@ public class GUIWindow extends JFrame {
         });
     }
 
+    // Method to show the report dialog
     private void showReportDialog() {
         String reportContent = generateReportContent();
         JTextArea textArea = new JTextArea(reportContent);
@@ -284,6 +284,7 @@ public class GUIWindow extends JFrame {
         dialog.setVisible(true);
     }
 
+    // Method to generate the report content
     private String generateReportContent() {
         return "Number of Students: " + University.studentCounter + "\n" +
                 "Number of Teachers: " + University.teacherCounter + "\n" +
@@ -291,38 +292,78 @@ public class GUIWindow extends JFrame {
                 "Number of Administrative Staff: " + University.administrativeStaffCounter;
     }
 
-
+    // Method to show the Add Course form
     private void showAddCourseForm() {
-        new CourseAddForm(WIDTH , HEIGHT);
+        new CourseAddForm(WIDTH, HEIGHT);
     }
+
+    // Method to show the View Courses table
     private void showViewCourses() {
-        new CourseViewTable(WIDTH , HEIGHT);
+        new CourseViewTable(WIDTH, HEIGHT);
     }
+
+    // Method to show the Search Course form
     private void showSearchCourse() {
-        new CourseSearchForm(WIDTH , HEIGHT);
+        new CourseSearchForm(WIDTH, HEIGHT);
     }
-  
+
+    // Method to show the Alter Student form
     private void showAlterStudent() {
-        new AlterCourseStudent(WIDTH , HEIGHT);
+        new AlterCourseStudent(WIDTH, HEIGHT);
     }
 
+    // Method to show the Add Student form
     private void showAddStudentForm() {
-        new StudentAdmissionForm(WIDTH , HEIGHT);
+        new StudentAdmissionForm(WIDTH, HEIGHT);
     }
 
+    // Method to show the Display Enrolled Courses form
     private void showDisplayEnrolled() {
-        new DisplayEnrolledCourses(WIDTH , HEIGHT);
+        new DisplayEnrolledCourses(WIDTH, HEIGHT);
     }
 
-  
-    private void showTeacherHiringForm() { new TeacherHiringForm(WIDTH , HEIGHT); }
-    private void ListTeacherCourses() { new ListTeacherCourses(WIDTH , HEIGHT); }
-    private void showAdministrativeHiringForm() { new AdministrationStaffHiringForm(WIDTH , HEIGHT); }
-    private void AssignCourseToTeacher() { new AssignCourseToTeacher(WIDTH , HEIGHT); }
-    private void showTeacherTable() { new ViewTeacherTable(WIDTH , HEIGHT); }
-    private void showStudentTable() { new ViewStudentTable(WIDTH , HEIGHT); }
-    private void generateTeacherReport() { new GenerateTeacherReport(WIDTH , HEIGHT); }
-    private void showAdministrativeTable() { new ViewAdministrativeTable(WIDTH , HEIGHT); }
-    private void showSearchStudent() { new SearchStudentByName(WIDTH , HEIGHT); }
+    // Method to show the Teacher Hiring form
+    private void showTeacherHiringForm() {
+        new TeacherHiringForm(WIDTH, HEIGHT);
+    }
 
+    // Method to list the Teacher Courses
+    private void ListTeacherCourses() {
+        new ListTeacherCourses(WIDTH, HEIGHT);
+    }
+
+    // Method to show the Administrative Hiring form
+    private void showAdministrativeHiringForm() {
+        new AdministrationStaffHiringForm(WIDTH, HEIGHT);
+    }
+
+    // Method to assign a course to a teacher
+    private void AssignCourseToTeacher() {
+        new AssignCourseToTeacher(WIDTH, HEIGHT);
+    }
+
+    // Method to show the Teacher table
+    private void showTeacherTable() {
+        new ViewTeacherTable(WIDTH, HEIGHT);
+    }
+
+    // Method to show the Student table
+    private void showStudentTable() {
+        new ViewStudentTable(WIDTH, HEIGHT);
+    }
+
+    // Method to generate the Teacher report
+    private void generateTeacherReport() {
+        new GenerateTeacherReport(WIDTH, HEIGHT);
+    }
+
+    // Method to show the Administrative table
+    private void showAdministrativeTable() {
+        new ViewAdministrativeTable(WIDTH, HEIGHT);
+    }
+
+    // Method to show the Search Student form
+    private void showSearchStudent() {
+        new SearchStudentByName(WIDTH, HEIGHT);
+    }
 }
