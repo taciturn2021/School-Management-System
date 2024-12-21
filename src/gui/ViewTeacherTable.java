@@ -59,7 +59,7 @@ public class ViewTeacherTable extends JFrame {
         });
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(150, 60, 500, 500);
+        scrollPane.setBounds(0, 60, 800, 500);
         add(scrollPane);
 
         setVisible(true);

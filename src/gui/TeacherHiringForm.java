@@ -100,10 +100,10 @@ public class TeacherHiringForm extends JFrame {
         specializationField.setBounds(250, 540, 500, 30);
 
         JButton submitButton = new JButton("Submit");
-        submitButton.setBounds(250, 580, 100, 30);
+        submitButton.setBounds(400, 580, 100, 30);
 
         JButton backButton = new JButton("Back");
-        backButton.setBounds(400, 580, 100, 30);
+        backButton.setBounds(550, 580, 100, 30);
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();

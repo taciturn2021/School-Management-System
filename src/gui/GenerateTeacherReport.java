@@ -33,6 +33,35 @@ public class GenerateTeacherReport extends JFrame {
         JButton generate = new JButton("Generate");
         generate.setBounds(350, 100, 100, 30);
 
+        JButton export = new JButton("Export");
+        export.setBounds(WIDTH - 130, 500, 100, 30);
+
+        export.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Teacher teacher = null;
+                for (Teacher teach : University.teacherRepository.getAll()) {
+                    try {
+                        if (teach.getTeacherID() == ExceptionUtility.parseTeacherID(teacherIdField.getText())) {
+                            teacher = teach;
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+                if (teacher != null) {
+                    try {
+                        teacher.exportToFile();
+                        JOptionPane.showMessageDialog(null, "Teacher report exported successfully");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Teacher not found");
+                }
+            }
+        });
+
         generate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,6 +123,7 @@ public class GenerateTeacherReport extends JFrame {
         });
 
         add(back);
+        add(export);
         add(teacherId);
         add(teacherIdField);
         add(generate);

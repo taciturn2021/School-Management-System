@@ -1,6 +1,7 @@
 package gui;
 
 import models.AdministrativeStaff;
+import models.Teacher;
 import models.University;
 import utils.FileHandler;
 
@@ -17,7 +18,7 @@ public class GUIWindow extends JFrame {
 
     public GUIWindow() {
         setTitle("School Management System");
-        setSize(WIDTH, 400);
+        setSize(WIDTH, 600);
 
         // Set the background color of the content pane
         getContentPane().setBackground(Color.GRAY);
@@ -42,7 +43,7 @@ public class GUIWindow extends JFrame {
         setLayout(new BorderLayout());
 
         // Create a panel to hold the welcome label and image label
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(Color.GRAY);
 
@@ -51,7 +52,7 @@ public class GUIWindow extends JFrame {
         Image originalImage = originalIcon.getImage();
 
         // Scale the image to the desired size
-        Image scaledImage = originalImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image scaledImage = originalImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
         // Create a label with the scaled image
@@ -64,8 +65,11 @@ public class GUIWindow extends JFrame {
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add the image label and welcome label to the panel
-        panel.add(imageLabel , BorderLayout.CENTER);
-        panel.add(welcomeLabel , BorderLayout.CENTER);
+        panel.add(Box.createVerticalGlue());
+        panel.add(imageLabel);
+        panel.add(Box.createVerticalStrut(20)); // Add some space between the image and the text
+        panel.add(welcomeLabel);
+        panel.add(Box.createVerticalGlue());
 
         // Add the panel to the frame
         add(panel, BorderLayout.CENTER);
@@ -179,6 +183,7 @@ public class GUIWindow extends JFrame {
         JMenuItem assignCourse = new JMenuItem("Assign Course to Teacher");
         JMenuItem viewTeachers = new JMenuItem("View Teachers");
         JMenuItem generateReport = new JMenuItem("Generate Report");
+
         teacherMenu.add(hireTeacher);
         teacherMenu.add(viewTeachers);
         teacherMenu.add(assignCourse);
@@ -216,6 +221,7 @@ public class GUIWindow extends JFrame {
                 generateTeacherReport();
             }
         });
+
 
     }
 
