@@ -1,6 +1,8 @@
 package utils;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import models.*;
@@ -109,5 +111,44 @@ public class FileHandler implements Serializable{
         }
     }
 
+    public static void saveTeacherReport(Teacher teacher) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        String fileName = "resources/reports/Teacher Reports/" + teacher.getName().replaceAll("\\s+", "_") + "_" + formattedDateTime + ".txt";
 
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write("Teacher: " + teacher.getName() + "\n");
+            writer.write("Department: " + teacher.getDepartment() + "\n");
+            writer.write("Specialization: " + teacher.getSpecialization() + "\n");
+            writer.write("Courses Taught:\n");
+
+            for (Course course : teacher.getCoursesTaught()) {
+                writer.write("Course ID: " + course.getCourseID() + "\n");
+                writer.write("Course Name: " + course.getCourseName() + "\n");
+                writer.write("Course Credits: " + course.getCourseCredits() + "\n");
+                writer.write("\n");
+            }
+        } catch (IOException e) {
+            throw new IOException("Error saving teacher report to file: " + e.getMessage());
+        }
+    }
+    public static void saveAdminStaffReport() throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        String fileName = "resources/reports/System Reports/SystemReport_" + formattedDateTime + ".txt";
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write("Current System Stats:\n");
+            writer.write("Students: " + University.studentCounter + "\n");
+            writer.write("Teachers: " + University.teacherCounter + "\n");
+            writer.write("Courses: " + University.courseCounter + "\n");
+            writer.write("Administrative Staff: " + University.administrativeStaffCounter + "\n");
+        } catch (IOException e) {
+            throw new IOException("Error saving administrative staff report to file: " + e.getMessage());
+        }
+    }
 }
+
+
+
+

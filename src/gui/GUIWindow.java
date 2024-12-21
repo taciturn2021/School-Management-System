@@ -1,5 +1,6 @@
 package gui;
 
+import models.AdministrativeStaff;
 import models.University;
 import utils.FileHandler;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.IllegalFormatWidthException;
 
 public class GUIWindow extends JFrame {
@@ -217,8 +219,7 @@ public class GUIWindow extends JFrame {
 
     }
 
-    private void createAdministrationMenu(JMenuBar menuBar){
-
+    private void createAdministrationMenu(JMenuBar menuBar) {
         JMenu administrationMenu = new JMenu("Administrative Staff");
         JMenuItem hireAdministration = new JMenuItem("Hire Administration Staff");
         JMenuItem generateReport = new JMenuItem("Generate Report");
@@ -237,8 +238,7 @@ public class GUIWindow extends JFrame {
 
         generateReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Number of Students: " + University.studentCounter + "\nNumber of Teachers: " + University.teacherCounter + "\nNumber of Courses: " + University.courseCounter + "\nNumber of Administrative Staff: " + University.administrativeStaffCounter);
-
+                showReportDialog();
             }
         });
 
@@ -247,7 +247,42 @@ public class GUIWindow extends JFrame {
                 showAdministrativeTable();
             }
         });
+    }
 
+    private void showReportDialog() {
+        String reportContent = generateReportContent();
+        JTextArea textArea = new JTextArea(reportContent);
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        JButton saveButton = new JButton("Save Report");
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    AdministrativeStaff.exportToFile();
+                    JOptionPane.showMessageDialog(null, "Report saved successfully.");
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error saving report: " + ex.getMessage());
+                }
+            }
+        });
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(saveButton, BorderLayout.SOUTH);
+
+        JDialog dialog = new JDialog(this, "Administrative Staff Report", true);
+        dialog.setSize(400, 300);
+        dialog.setLocationRelativeTo(this);
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
+
+    private String generateReportContent() {
+        return "Number of Students: " + University.studentCounter + "\n" +
+                "Number of Teachers: " + University.teacherCounter + "\n" +
+                "Number of Courses: " + University.courseCounter + "\n" +
+                "Number of Administrative Staff: " + University.administrativeStaffCounter;
     }
 
 
