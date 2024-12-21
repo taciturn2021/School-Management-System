@@ -34,6 +34,7 @@ public class AdministrativeStaff extends Person implements Serializable {
     public static void exportToFile() throws FileNotFoundException, IOException {
         try {
             FileHandler.saveAdminStaffReport();
+
         } catch (IOException e) {
             throw new IOException("Error exporting Administrative Staff report to file.");
         }
