@@ -1,5 +1,9 @@
 package models;
 
+import utils.FileHandler;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +27,16 @@ public class AdministrativeStaff extends Person implements Serializable {
 
     public String toString(){
         return getStaffID()+ " " + getRole() + " " + getDepartment() ;
+    }
+
+
+
+    public static void exportToFile() throws FileNotFoundException, IOException {
+        try {
+            FileHandler.saveAdminStaffReport();
+        } catch (IOException e) {
+            throw new IOException("Error exporting Administrative Staff report to file.");
+        }
     }
     // Getters and Setters
 
