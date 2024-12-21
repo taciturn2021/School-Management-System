@@ -36,8 +36,8 @@ public class GenerateTeacherReport extends JFrame {
         generate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Teacher teacher = null ;
-                for ( Teacher teach : University.teacherRepository.getAll()){
+                Teacher teacher = null;
+                for (Teacher teach : University.teacherRepository.getAll()) {
                     try {
                         if (teach.getTeacherID() == ExceptionUtility.parseTeacherID(teacherIdField.getText())) {
                             teacher = teach;
@@ -46,18 +46,19 @@ public class GenerateTeacherReport extends JFrame {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
                     }
                 }
-                if ( teacher != null ) {
+                if (teacher != null) {
                     List<Course> courses = teacher.getCoursesTaught();
-                    JList list = new JList(courses.toArray());
-                    list.setBounds(150, 140, 500, 200);
-
-                    JScrollPane scrollPane = new JScrollPane(list);
-                    scrollPane.setBounds(150, 140, 500, 200);
-
-                    String columnNames[] = {"Course ID", "Course Name", "Credits" , "Number Of Students Enrolled" , "Average Grade"};
-                    Object[][] data = new Object[courses.size()][5];
-
                     if (courses.size() > 0) {
+                        String[] courseNames = courses.stream().map(Course::getCourseName).toArray(String[]::new);
+                        JList<String> list = new JList<>(courseNames);
+                        list.setBounds(150, 140, 500, 200);
+
+                        JScrollPane scrollPane = new JScrollPane(list);
+                        scrollPane.setBounds(150, 140, 500, 200);
+
+                        String columnNames[] = {"Course ID", "Course Name", "Credits", "Number Of Students Enrolled", "Average Grade"};
+                        Object[][] data = new Object[courses.size()][5];
+
                         for (int i = 0; i < courses.size(); i++) {
                             data[i][0] = courses.get(i).getCourseID();
                             data[i][1] = courses.get(i).getCourseName();
@@ -66,26 +67,23 @@ public class GenerateTeacherReport extends JFrame {
                             data[i][4] = courses.get(i).calculateAverageGrade();
                         }
 
-                    }else {
+                        JTable table = new JTable(data, columnNames);
+                        table.setBounds(150, 360, 500, 200);
+                        JScrollPane scrollPaneTable = new JScrollPane(table);
+                        scrollPaneTable.setBounds(150, 360, 500, 200);
+
+                        add(scrollPaneTable);
+                        add(scrollPane);
+                        revalidate();
+                        repaint();
+
+                    } else {
                         JOptionPane.showMessageDialog(null, "No courses found for this teacher");
                     }
-
-                    JTable table = new JTable(data, columnNames);
-                    table.setBounds(150, 360, 500, 200);
-                    JScrollPane scrollPaneTable = new JScrollPane(table);
-                    scrollPaneTable.setBounds(150, 360, 500, 200);
-
-                    add(scrollPaneTable);
-                    add(scrollPane);
-                    repaint();
-
-                }else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Teacher not found");
-
                 }
-
             }
-
         });
 
         back.addActionListener(new ActionListener() {
